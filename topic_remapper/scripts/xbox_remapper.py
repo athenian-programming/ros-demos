@@ -12,6 +12,7 @@ def vels(dir, target_linear_vel, target_ang_vel):
 def callback(msg):
     global pub, target_linear_vel, target_ang_vel, control_linear_vel, control_ang_vel
 
+    # Map button cross
     if msg.axes[7] == 1.0:
         target_linear_vel = target_linear_vel + 0.01
         print vels("Forward ", target_linear_vel, target_ang_vel)
@@ -24,6 +25,8 @@ def callback(msg):
     elif msg.axes[6] == -1.0:
         target_ang_vel = target_ang_vel - 0.1
         print vels("Right   ", target_linear_vel, target_ang_vel)
+
+    # Map left joystick
     elif msg.axes[1] > 0.0:
         target_linear_vel = target_linear_vel + (0.01 * msg.axes[1])
         print vels("Forward   ", target_linear_vel, target_ang_vel)
@@ -36,6 +39,8 @@ def callback(msg):
     elif msg.axes[0] < 0.0:
         target_ang_vel = target_ang_vel - (0.1 * -msg.axes[0])
         print vels("Right   ", target_linear_vel, target_ang_vel)
+
+    # Map all button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
         target_linear_vel = 0
         control_linear_vel = 0
