@@ -24,12 +24,24 @@ def callback(msg):
     elif msg.axes[6] == -1.0:
         target_ang_vel = target_ang_vel - 0.1
         print vels("Right   ", target_linear_vel, target_ang_vel)
+    elif msg.axes[1] > 0.0:
+        target_linear_vel = target_linear_vel + (0.01 * msg.axes[1])
+        print vels("Forward   ", target_linear_vel, target_ang_vel)
+    elif msg.axes[1] < 0.0:
+        target_linear_vel = target_linear_vel - (0.01 * -msg.axes[1])
+        print vels("Backward   ", target_linear_vel, target_ang_vel)
+    elif msg.axes[0] > 0.0:
+        target_ang_vel = target_ang_vel + (0.1 * msg.axes[0])
+        print vels("Left    ", target_linear_vel, target_ang_vel)
+    elif msg.axes[0] < 0.0:
+        target_ang_vel = target_ang_vel - (0.1 * -msg.axes[0])
+        print vels("Right   ", target_linear_vel, target_ang_vel)
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
         target_linear_vel = 0
         control_linear_vel = 0
         target_ang_vel = 0
         control_ang_vel = 0
-        print vels("Stop", target_linear_vel, target_ang_vel)
+        print vels("Stop    ", target_linear_vel, target_ang_vel)
 
     control_linear_vel = min(target_linear_vel,
                              control_linear_vel + (
