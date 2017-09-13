@@ -1,10 +1,10 @@
-# Topics Demo
+# Topic Basics Demo
 
 ## Non-latched Topics
 
 Run *topic_publisher.py* with:
 ```bash
-$ ./topic_publisher.py
+$ rosrun topic_basics topic_publisher.py
 ```
 
 Inspect the topic *counter* from the CLI with:
@@ -26,19 +26,19 @@ $ rqt
 
 Run *topic_subscriber.py* with:
 ```bash
-$ ./topic_subscriber.py
+$ rosrun topic_basics topic_subscriber.py
 ```
 
 ## Latched Topics
 
 Run *latched_topic_publisher.py* with:
 ```bash
-$ ./latched_topic_publisher.py
+$ rosrun topic_basics latched_topic_publisher.py
 ```
 
 Run *topic_subscriber.py* with:
 ```bash
-$ ./topic_subscriber.py
+$ rosrun topic_basics topic_subscriber.py
 ```
 
 
