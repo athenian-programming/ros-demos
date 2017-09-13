@@ -13,7 +13,7 @@ def callback(msg):
 rospy.init_node('xbox_remapper')
 
 # pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
-sub = rospy.Subscriber('joy/axes', Joy, callback)
+sub = rospy.Subscriber('joy', Joy, callback)
 print "Listening..."
 
 rospy.spin()

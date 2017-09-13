@@ -1,4 +1,4 @@
-# Topic Remapper Demo
+## Topic Remapper Demo
 
 1) Goto the [Scenarios on the Euclid](http://euclid.local/#config/scenarios) and run a scenario 
 that has a **Robot Movement Controller** Node
@@ -11,11 +11,12 @@ $ rosrun topic_remapper twist_remapper.py
 ```
 
 or:
+
 ```bash
 $ roslaunch topic_remapper twist_remapper.launch
 ```
 
-Better to remap in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
+It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
 ```xml
 <launch>
 
@@ -32,3 +33,16 @@ Better to remap in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/tur
 
 The remap tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
+
+## XBox Remapper
+
+Run *xbox_remapper.py* with: 
+```bash
+$ rosrun topic_remapper xbox_remapper.py 
+```
+
+or:
+
+```bash
+$ roslaunch topic_remapper xbox_remapper.launch
+```
