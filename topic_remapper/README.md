@@ -19,6 +19,7 @@ Better to remap in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/tur
 ```xml
 <launch>
 
+  <!-- The remap tag has to come before the affected node tag -->
   <remap from="cmd_vel" to="cmd_vel_mux/input/teleop"/>
   
   <node pkg="rosserial_python" type="serial_node.py" name="turtlebot3_core" output="screen">
@@ -28,4 +29,6 @@ Better to remap in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/tur
 
 </launch>
 ``` 
+
+The remap tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
