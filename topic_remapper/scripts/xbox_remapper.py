@@ -25,7 +25,7 @@ def callback(msg):
     elif msg.axes[6] == -1.0:
         target_angular_vel = target_angular_vel - 0.1
         print vels(target_linear_vel, target_angular_vel)
-    elif msg.buttons[0] != 0 or msg.buttons[1] != 0:
+    elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
         print("Stopping")
         target_linear_vel = 0
         control_linear_vel = 0
