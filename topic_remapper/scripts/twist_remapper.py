@@ -6,7 +6,8 @@ from geometry_msgs.msg import Twist
 
 def callback(msg):
     global pub
-    print "Remapping value"
+    if msg.angular.z != 0.0 or msg.linear.x != 0.0:
+        print("Remapping linear.x={0} angular.z={1}".format(msg.linear.x, msg.angular.z))
     pub.publish(msg)
 
 
