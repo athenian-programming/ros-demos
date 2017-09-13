@@ -9,37 +9,29 @@ def vels(target_linear_vel, target_angular_vel):
     return "currently:\tlinear vel %s\t angular vel %s " % (target_linear_vel, target_angular_vel)
 
 def callback(msg):
-    global pub, status, target_linear_vel, target_angular_vel, control_linear_vel, control_angular_vel
+    global pub, target_linear_vel, target_angular_vel, control_linear_vel, control_angular_vel
     if msg.axes[6] != 0.0 or msg.axes[7] != 0.0:
         print("Remapping {0} {1}".format(msg.axes[6], msg.axes[7]))
-    if msg.buttons[0] != 0 or msg.buttons[1] != 0 or msg.buttons[2] != 0 or msg.buttons[3] != 0:
-        print("Stopping")
 
     if msg.axes[7] == 1.0:
         target_linear_vel = target_linear_vel + 0.01
-        status = status + 1
         print vels(target_linear_vel, target_angular_vel)
     elif msg.axes[7] == -1.0:
         target_linear_vel = target_linear_vel - 0.01
-        status = status + 1
         print vels(target_linear_vel, target_angular_vel)
     elif msg.axes[6] == 1.0:
         target_angular_vel = target_angular_vel + 0.1
-        status = status + 1
         print vels(target_linear_vel, target_angular_vel)
     elif msg.axes[6] == -1.0:
         target_angular_vel = target_angular_vel - 0.1
-        status = status + 1
         print vels(target_linear_vel, target_angular_vel)
     elif msg.buttons[0] != 0 or msg.buttons[1] != 0:
+        print("Stopping")
         target_linear_vel = 0
         control_linear_vel = 0
         target_angular_vel = 0
         control_angular_vel = 0
-        print vels(0, 0)
-    elif status == 14:
-        # print(msg)
-        status = 0
+        print vels(target_linear_vel, target_angular_vel)
 
     if target_linear_vel > control_linear_vel:
         control_linear_vel = min(target_linear_vel, control_linear_vel + (0.01 / 4.0))
@@ -60,7 +52,6 @@ def callback(msg):
     twist.angular.z = control_angular_vel
     pub.publish(twist)
 
-status = 0
 target_linear_vel = 0
 target_angular_vel = 0
 control_linear_vel = 0
