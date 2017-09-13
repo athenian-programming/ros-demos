@@ -13,8 +13,8 @@ def callback(msg):
 
 rospy.init_node('twist_remapper')
 
-pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
-sub = rospy.Subscriber('cmd_vel_mux/input/teleop', Twist, callback)
+pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+sub = rospy.Subscriber('/cmd_vel_mux/input/teleop', Twist, callback)
 print "Listening..."
 
 rospy.spin()
