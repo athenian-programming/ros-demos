@@ -11,7 +11,7 @@ def callback(msg):
     pub.publish(msg)
 
 
-rospy.init_node('topic_remapper')
+rospy.init_node('twist_remapper')
 
 pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 sub = rospy.Subscriber('cmd_vel_mux/input/teleop', Twist, callback)

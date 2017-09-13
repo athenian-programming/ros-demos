@@ -10,6 +10,7 @@ project(topic_remapper)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   rospy
+  sensor_msgs
   std_msgs
 )
 

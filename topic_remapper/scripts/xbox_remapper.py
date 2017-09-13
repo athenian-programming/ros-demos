@@ -1,20 +1,19 @@
 #!/usr/bin/env python
 
 import rospy
-from geometry_msgs.msg import Twist
-
+from sensor_msgs.msg import Joy
 
 def callback(msg):
-    global pub
-    if msg.angular.z != 0.0 or msg.linear.x != 0.0:
-        print("Remapping linear.x={0} angular.z={1}".format(msg.linear.x, msg.angular.z))
-    pub.publish(msg)
+    # global pub
+    if msg.axes[6] != 0.0 or msg.axes[7] != 0.0:
+        print("Remapping {0} {1}".format(msg.axes[6], msg.axes[7]))
+        # pub.publish(msg)
 
 
-rospy.init_node('topic_remapper')
+rospy.init_node('xbox_remapper')
 
-pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
-sub = rospy.Subscriber('cmd_vel_mux/input/teleop', Twist, callback)
+# pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+sub = rospy.Subscriber('joy/axes', Joy, callback)
 print "Listening..."
 
 rospy.spin()
