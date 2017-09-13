@@ -24,6 +24,12 @@ Launch keyboard control with:
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
+Launch RViz viewer with: 
+```bash
+# On Ubuntu PC
+$ roslaunch turtlebot3_bringup turtlebot3_model.launch
+```
+
 Examine the topics and values with either *rqt* or *rqt_plot*.
 With *rqt* add the following plugins:
    1) **Plugins-->Topics-->TopicMonitor** 
@@ -35,6 +41,7 @@ Plot these topics:
  2) **/imu/orientation/z** for robot rotation.
 
 
+<<<<<<< HEAD
 Launch RViz viewer with: 
 ```bash
 # On Ubuntu PC
@@ -42,6 +49,9 @@ $ roslaunch turtlebot3_bringup turtlebot3_model.launch
 ```
 
 ## TurtleBot3 Gazebo Demo
+=======
+### TurtleBot3 Gazebo Demo
+>>>>>>> 49b647b3331340ab4eaa1d806835c4f4642a6971
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/simulation.html).
 
