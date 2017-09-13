@@ -23,11 +23,11 @@ def callback(msg):
         target_linear_vel = target_linear_vel - 0.01
         status = status + 1
         print vels(target_linear_vel, target_angular_vel)
-    elif msg.axes[7] == 1.0:
+    elif msg.axes[6] == 1.0:
         target_angular_vel = target_angular_vel + 0.1
         status = status + 1
         print vels(target_linear_vel, target_angular_vel)
-    elif msg.axes[7] == -1.0:
+    elif msg.axes[6] == -1.0:
         target_angular_vel = target_angular_vel - 0.1
         status = status + 1
         print vels(target_linear_vel, target_angular_vel)
