@@ -30,15 +30,25 @@ The remap tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
 ## XBox Remapper
 
+### Setup
+
 Install the necessary packages with:
 ````bash
 # On Ubunutu
 $ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 ````
 
-Launch the teleoperation packages for XBOX controller with:
+### Usage
+
+Launch the Xbox USB Gamepad Userspace Driver with:
 ```bash
 $ sudo xboxdrv --silent
+# If you get a LIBUSB_ERROR_BUSY error, fix it with:
+# sudo rmmod xpad
+```
+
+Launch the teleoperation package for the XBox controller with:
+```bash
 $ roslaunch teleop_twist_joy teleop.launch
 ```
 

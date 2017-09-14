@@ -42,22 +42,18 @@ def callback(msg):
 
     # Map all right button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
-        if target_linear_vel <= -0.01:
-            target_linear_vel = target_linear_vel + .01
-            control_linear_vel = control_linear_vel + .01
-        elif target_linear_vel >= 0.01:
-            target_linear_vel = target_linear_vel - .01
-            control_linear_vel = control_linear_vel - .01
+        if target_linear_vel <= -0.02:
+            target_linear_vel = target_linear_vel + 0.02
+        elif target_linear_vel >= 0.02:
+            target_linear_vel = target_linear_vel - 0.02
         else:
             target_linear_vel = 0
             control_linear_vel = 0
 
-        if target_ang_vel <= -0.1:
-            target_ang_vel = target_ang_vel + 0.1
-            control_ang_vel = control_ang_vel + 0.1
-        elif target_ang_vel >= 0.1:
-            target_ang_vel = target_ang_vel - 0.1
-            control_ang_vel = control_ang_vel - 0.1
+        if target_ang_vel <= -0.2:
+            target_ang_vel = target_ang_vel + 0.2
+        elif target_ang_vel >= 0.2:
+            target_ang_vel = target_ang_vel - 0.2
         else:
             target_ang_vel = 0
             control_ang_vel = 0
