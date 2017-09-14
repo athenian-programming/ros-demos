@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import rospy
-
 from std_msgs.msg import Int32
 
 if __name__ == '__main__':
