@@ -13,8 +13,8 @@ $ catkin_make
 
 ## Demos
 
-* [TurtleBot3 Keyboard Teleop](tb3_keyboard/)
-* [TurtleBot3 Gazebo](tb3_gazebo/)
+* [TurtleBot3 Keyboard Control](tb3_keyboard.md)
+* [TurtleBot3 Gazebo](gazebo_demo.md)
 * [Topic Basics](topic_basics/)
 * [Topic Remapping](topic_remapper/)
 
