@@ -2,7 +2,7 @@
 
 import rospy
 from geometry_msgs.msg import Twist
-from sensor_msgs.msg import Joy
+from nav_msgs.msg import Odometry
 
 
 def vels(dir, target_linear_vel, target_ang_vel):
@@ -42,19 +42,15 @@ def callback(msg):
 
     # Map all right button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
-        if target_linear_vel < -0.01:
-            target_linear_vel = target_linear_vel + .01
-            control_linear_vel = control_linear_vel + .01
-        if target_linear_vel > 0:
-            target_linear_vel = target_linear_vel - .01
-            control_linear_vel = control_linear_vel - .01
+        target_linear_vel = 0
+        control_linear_vel = 0
         target_ang_vel = 0
         control_ang_vel = 0
         print vels("Stop    ", target_linear_vel, target_ang_vel)
 
     control_linear_vel = min(target_linear_vel,
                              control_linear_vel + (
-                             0.01 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
+                                 0.01 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
 
     control_ang_vel = min(target_ang_vel,
                           control_ang_vel + (0.1 / 4.0)) if target_ang_vel > control_ang_vel else target_ang_vel
@@ -78,7 +74,7 @@ if __name__ == '__main__':
     rospy.init_node('xbox_remapper')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-    sub = rospy.Subscriber('/joy', Joy, callback)
+    sub = rospy.Subscriber('/joy', Odometry, callback)
     print "Listening..."
 
     rospy.spin()
