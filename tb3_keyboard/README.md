@@ -2,7 +2,7 @@
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 
-Launch turtlebot3 operation packages and enable robot with:
+Launch the TurtleBot3 operation packages and enable robot with:
 ```bash
 # On TurtleBot3
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
@@ -12,12 +12,6 @@ Launch keyboard control with:
 ```bash
 # On Ubuntu PC
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
-```
-
-Launch RViz viewer with: 
-```bash
-# On Ubuntu PC
-$ roslaunch turtlebot3_bringup turtlebot3_model.launch
 ```
 
 Launch RViz viewer with: 
