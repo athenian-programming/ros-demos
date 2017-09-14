@@ -65,15 +65,16 @@ def callback(msg):
     pub.publish(twist)
 
 
-target_linear_vel = 0
-target_ang_vel = 0
-control_linear_vel = 0
-control_ang_vel = 0
+if __name__ == '__main__':
+    target_linear_vel = 0
+    target_ang_vel = 0
+    control_linear_vel = 0
+    control_ang_vel = 0
 
-rospy.init_node('xbox_remapper')
+    rospy.init_node('xbox_remapper')
 
-pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-sub = rospy.Subscriber('/joy', Joy, callback)
-print "Listening..."
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+    sub = rospy.Subscriber('/joy', Joy, callback)
+    print "Listening..."
 
-rospy.spin()
+    rospy.spin()
