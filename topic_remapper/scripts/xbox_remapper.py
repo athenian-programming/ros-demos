@@ -85,7 +85,7 @@ def callback(msg):
         control_ang_vel = target_ang_vel
 
     twist = Twist()
-    twist.linear.x = bound(-1.0, 1.0, control_linear_vel),
+    twist.linear.x = bound(-1.0, 1.0, control_linear_vel)
     twist.linear.y = 0
     twist.linear.z = 0
     twist.angular.x = 0
