@@ -7,12 +7,6 @@ that has a **Robot Movement Controller** Node
 
 Run *twist_remapper.py* with: 
 ```bash
-$ rosrun topic_remapper twist_remapper.py 
-```
-
-or:
-
-```bash
 $ roslaunch topic_remapper twist_remapper.launch
 ```
 
@@ -49,12 +43,6 @@ $ roslaunch teleop_twist_joy teleop.launch
 ```
 
 Run *xbox_remapper.py* with: 
-```bash
-$ rosrun topic_remapper xbox_remapper.py 
-```
-
-or:
-
 ```bash
 $ roslaunch topic_remapper xbox_remapper.launch
 ```
