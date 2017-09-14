@@ -1,6 +1,17 @@
 # ROS Demos
 
-## TurtleBot3 Demo
+## Install 
+
+Install the demo packages with:
+
+```bash
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/athenian-robotics/ros-demos.git
+$ cd ~/catkin_ws
+$ catkin_make
+```
+
+## TurtleBot3 Keyboard Control Demo
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 
@@ -39,7 +50,7 @@ Plot these topics:
  2) **/imu/orientation/z** for robot rotation.
 
 
-## TurtleBot3 Gazebo Demo
+## TurtleBot3 Keyboard Control with Gazebo Demo
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/simulation.html).
 

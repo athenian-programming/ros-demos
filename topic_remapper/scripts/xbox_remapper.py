@@ -40,7 +40,7 @@ def callback(msg):
         target_ang_vel = target_ang_vel - (0.1 * -msg.axes[0])
         print vels("Right   ", target_linear_vel, target_ang_vel)
 
-    # Map all button presses to stop
+    # Map all right button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
         target_linear_vel = 0
         control_linear_vel = 0
