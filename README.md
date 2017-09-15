@@ -14,7 +14,7 @@ $ catkin_make
 ## Demos
 
 * [TurtleBot3 Keyboard Control](docs/tb3_keyboard.md)
-* [TurtleBot3 Gazebo](docs/gazebo_demo.md)
+* [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 * [Topic Basics](topic_basics/)
 * [Topic Remapping](topic_remapper/)
 
