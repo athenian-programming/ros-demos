@@ -1,4 +1,6 @@
-## Topic Remapper Demo
+# Topic Remapper Demos
+
+## Euclid Teleop Remapper
 
 1) Goto the [Scenarios on the Euclid](http://euclid.local/#config/scenarios) and run a scenario 
 that has a **Robot Movement Controller** Node
@@ -25,12 +27,12 @@ It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/t
 </launch>
 ``` 
 
-The remap tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
+The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
 
 ## XBox Remapper
 
-### Setup
+### Installation
 
 Install the necessary packages with:
 ````bash
