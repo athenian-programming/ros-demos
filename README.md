@@ -20,8 +20,7 @@ $ catkin_make
 ```
 
 ## Setup
-
-Add these statements (replacing ubuntu1 with your Ubuntu PC hostname) to your *.bashrc*:
+Add these statements (replacing ubuntu1 with your Ubuntu PC hostname) to your *~/.bashrc*:
 ```bash
 source /opt/ros/kinetic/setup.bash
 source ~/catkin_ws/devel/setup.bash

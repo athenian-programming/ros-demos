@@ -49,12 +49,9 @@ $ sudo xboxdrv --silent
 # sudo rmmod xpad
 ```
 
-Launch the teleoperation package for the XBox controller with:
-```bash
-$ roslaunch teleop_twist_joy teleop.launch
-```
-
 Run *xbox_remapper.py* with: 
 ```bash
 $ roslaunch topic_remapper xbox_remapper.launch
 ```
+
+This launches both the remapper and the teleoperation package for the XBox controller.
