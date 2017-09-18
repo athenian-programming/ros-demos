@@ -2,13 +2,12 @@
 
 ## Euclid Teleop Remapper
 
-1) Goto the [Scenarios on the Euclid](http://euclid.local/#config/scenarios) and run a scenario 
-that has a **Robot Movement Controller** Node
-2) Goto the [Monitor on the Euclid](http://euclid.local/#apps) and enable *teleop*
-3) Review the topics in the *rqt* **Topic Monitor**
+1) Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
+2) Review the topics in the *rqt* **Topic Monitor**
 
 Run *twist_remapper.py* with: 
 ```bash
+# On Ubunutu
 $ roslaunch topic_remapper twist_remapper.launch
 ```
 
@@ -29,7 +28,6 @@ It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/t
 
 The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
-
 ## XBox Remapper
 
 ### Installation
@@ -49,9 +47,9 @@ $ sudo xboxdrv --silent
 # sudo rmmod xpad
 ```
 
-Run *xbox_remapper.py* with: 
+Run *xbox_remapper.launch* with: 
 ```bash
 $ roslaunch topic_remapper xbox_remapper.launch
 ```
 
-This launches both the remapper and the teleoperation package for the XBox controller.
+This launches both the remapper node and the teleoperation package for the XBox controller.
