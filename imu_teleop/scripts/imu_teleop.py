@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
 INC = 0.01
-MULT = 4.0
+MULT = 0.25
 
 def vels(dir, target, control):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target, control)
