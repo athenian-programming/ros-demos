@@ -10,7 +10,7 @@ def vels(dir, target_linear_vel, target_ang_vel):
 
 
 def linear_callback(msg):
-    global linear_init, target_linear_vel, control_linear_vel, target_ang_vel, control_ang_vel
+    global linear_init, target_linear_vel, control_linear_vel, target_ang_vel
 
     raw_val = msg.pose.pose.orientation.y
 
@@ -35,9 +35,8 @@ def linear_callback(msg):
                              control_linear_vel + (
                                  0.01 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
 
-
 def ang_callback(msg):
-    global ang_init, target_ang_vel, control_ang_vel, target_linear_vel, control_linear_vel
+    global ang_init, target_ang_vel, control_ang_vel, target_linear_vel
 
     raw_val = msg.pose.pose.orientation.z
 
@@ -70,15 +69,15 @@ if __name__ == '__main__':
     control_linear_vel = 0
     control_ang_vel = 0
 
-    rospy.init_node('imu_remapper')
+    rospy.init_node('imu_teleop')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-    rospy.Subscriber('/realsense/odom/pose/pose/orientation/y', Odometry, linear_callback)
-    rospy.Subscriber('/realsense/odom/pose/pose/orientation/z', Odometry, ang_callback)
+    rospy.Subscriber('/realsense/odom', Odometry, linear_callback)  # /pose/pose/orientation/y
+    rospy.Subscriber('/realsense/odom', Odometry, ang_callback)  # /pose/pose/orientation/z
 
     print("Listening...")
 
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(2)
 
     while True:
         twist = Twist()
@@ -89,4 +88,5 @@ if __name__ == '__main__':
         twist.angular.y = 0
         twist.angular.z = control_ang_vel
         pub.publish(twist)
+        print("Writing...")
         rate.sleep()

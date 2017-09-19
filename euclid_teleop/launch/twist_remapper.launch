@@ -1,3 +1,0 @@
-<launch>
-    <node name="euclid_teleop" pkg="euclid_teleop" type="twist_remapper.py" output="screen"/>
-</launch>

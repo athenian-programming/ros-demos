@@ -1,4 +1,0 @@
-<launch>
-    <!-- Run imu_teleop -->
-    <node name="imu_teleop" pkg="imu_teleop" type="imu_teleop.py" output="screen"/>
-</launch>
