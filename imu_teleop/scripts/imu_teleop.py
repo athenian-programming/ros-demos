@@ -21,10 +21,10 @@ def linear_callback(msg):
     val = raw_val - linear_init
 
     if val >= 0.1:
-        target_linear_vel = target_linear_vel + (0.01 * val)
+        target_linear_vel = target_linear_vel + (0.1 * val)
         print(vels("Forward   ", target_linear_vel, target_ang_vel))
     elif val <= -0.1:
-        target_linear_vel = target_linear_vel - (0.01 * -val)
+        target_linear_vel = target_linear_vel - (0.1 * -val)
         print(vels("Backward   ", target_linear_vel, target_ang_vel))
     else:
         target_linear_vel = 0
@@ -33,7 +33,7 @@ def linear_callback(msg):
 
     control_linear_vel = min(target_linear_vel,
                              control_linear_vel + (
-                                 0.01 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
+                                 0.1 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
 
 def ang_callback(msg):
     global ang_init, target_ang_vel, control_ang_vel, target_linear_vel
@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     print("Listening...")
 
-    rate = rospy.Rate(2)
+    rate = rospy.Rate(10)
 
     while True:
         twist = Twist()
@@ -87,6 +87,5 @@ if __name__ == '__main__':
         twist.angular.x = 0
         twist.angular.y = 0
         twist.angular.z = control_ang_vel
-        # pub.publish(twist)
-        # print("Writing...")
+        pub.publish(twist)
         rate.sleep()
