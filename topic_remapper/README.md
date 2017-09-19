@@ -28,7 +28,7 @@ It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/t
 
 The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
-## XBox Remapper
+## XBox Teleop
 
 ### Installation
 
@@ -49,7 +49,7 @@ $ sudo xboxdrv --silent
 
 Run *xbox_remapper.launch* with: 
 ```bash
-$ roslaunch topic_remapper xbox_remapper.launch
+$ roslaunch topic_remapper xbox_teleop.launch
 ```
 
-This launches both the remapper node and the teleoperation package for the XBox controller.
+This launches both the xbox_teleop node and the teleoperation package for the XBox controller.

@@ -1,3 +1,0 @@
-<launch>
-    <node name="xbox_remapper" pkg="topic_remapper" type="xbox_remapper.py" output="screen"/>
-</launch>
