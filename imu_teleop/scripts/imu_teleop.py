@@ -47,10 +47,10 @@ def ang_callback(msg):
     val = raw_val - ang_init
 
     if val >= 0.1:
-        target_ang_vel = target_ang_vel + (0.1 * val)
+        target_ang_vel = target_ang_vel + (0.01 * val)
         print(vels("Left    ", target_linear_vel, target_ang_vel))
     elif val <= -0.1:
-        target_ang_vel = target_ang_vel - (0.1 * -val)
+        target_ang_vel = target_ang_vel - (0.01 * -val)
         print(vels("Right   ", target_linear_vel, target_ang_vel))
     else:
         target_ang_vel = 0
@@ -58,7 +58,7 @@ def ang_callback(msg):
         print(vels("Angular Stop", target_linear_vel, target_ang_vel))
 
     control_ang_vel = min(target_ang_vel,
-                          control_ang_vel + (0.1 / 4.0)) if target_ang_vel > control_ang_vel else target_ang_vel
+                          control_ang_vel + (0.01 / 4.0)) if target_ang_vel > control_ang_vel else target_ang_vel
 
 
 if __name__ == '__main__':
