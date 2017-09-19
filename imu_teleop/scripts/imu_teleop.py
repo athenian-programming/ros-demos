@@ -35,7 +35,7 @@ def linear_callback(msg):
     else:
         if control_linear_vel >= 0.1:
             control_linear_vel = control_linear_vel - .01
-        elif control_linear_vel <= 0.1:
+        elif control_linear_vel <= -0.1:
             control_linear_vel = control_linear_vel + .01
         else:
             control_linear_vel = 0
