@@ -12,7 +12,7 @@ Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
 
 Run *twist_remapper.py* with: 
 ```bash
-# On Ubunutu
+# On Ubunutu PC
 $ roslaunch euclid_teleop twist_remapper.launch
 ```
 

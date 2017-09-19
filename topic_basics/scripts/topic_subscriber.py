@@ -9,6 +9,6 @@ def callback(msg):
 
 if __name__ == '__main__':
     rospy.init_node('topic_subscriber')
-    sub = rospy.Subscriber('counter', Int32, callback)
+    rospy.Subscriber('counter', Int32, callback)
     print("Listening...")
     rospy.spin()
