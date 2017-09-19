@@ -29,7 +29,7 @@ def linear_callback(msg):
     else:
         target_linear_vel = 0
         control_linear_vel = 0
-        print(vels("Stop    ", target_linear_vel, target_ang_vel))
+        print(vels("Linear Stop", target_linear_vel, target_ang_vel))
 
     control_linear_vel = min(target_linear_vel,
                              control_linear_vel + (
@@ -55,7 +55,7 @@ def ang_callback(msg):
     else:
         target_ang_vel = 0
         control_ang_vel = 0
-        print(vels("Stop    ", target_linear_vel, target_ang_vel))
+        print(vels("Angular Stop", target_linear_vel, target_ang_vel))
 
     control_ang_vel = min(target_ang_vel,
                           control_ang_vel + (0.1 / 4.0)) if target_ang_vel > control_ang_vel else target_ang_vel
