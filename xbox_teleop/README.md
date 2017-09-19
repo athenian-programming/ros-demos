@@ -18,7 +18,7 @@ $ sudo xboxdrv --silent
 Run *xbox_remapper.launch* with: 
 ```bash
 On Ubuntu PC
-$ roslaunch topic_remapper xbox_teleop.launch
+$ roslaunch xbox_teleop xbox_teleop.launch
 ```
 
 This launches both the xbox_teleop node and the teleoperation package for the XBox controller.

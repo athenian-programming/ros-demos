@@ -1,4 +1,4 @@
-# Topic Basics Demo
+# Topic Basics
 
 ## Non-latched Topics
 
