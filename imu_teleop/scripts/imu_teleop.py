@@ -12,7 +12,7 @@ def vels(dir, target_linear_vel, target_ang_vel):
 def linear_callback(msg):
     global linear_init, target_linear_vel, control_linear_vel, target_ang_vel
 
-    raw_val = msg.pose.pose.orientation.y
+    raw_val = int((msg.pose.pose.orientation.y * 100))
 
     if linear_init is None:
         linear_init = raw_val
