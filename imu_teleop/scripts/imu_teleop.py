@@ -4,7 +4,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
-INC = 0.01 / 4
+INC = 0.01 / 5.0
 
 def vels(dir, target_linear_vel, target_ang_vel):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target_linear_vel, target_ang_vel)
