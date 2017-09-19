@@ -22,7 +22,7 @@ def linear_callback(msg):
     # Normalize to initial value
     val = raw_val - linear_adj
 
-    if val >= 0.1:
+    if val >= 0.05:
         target_linear_vel = val
         if target_linear_vel > control_linear_vel:
             control_linear_vel = control_linear_vel + (INC * MULT)
@@ -32,7 +32,7 @@ def linear_callback(msg):
             control_linear_vel = target_linear_vel
         control_linear_vel = min(1.0, control_linear_vel)
         print(vels("Forward   ", control_linear_vel, target_linear_vel))
-    elif val <= -0.1:
+    elif val <= -0.05:
         target_linear_vel = val
         if target_linear_vel > control_linear_vel:
             control_linear_vel = control_linear_vel + (INC * MULT)
@@ -44,9 +44,9 @@ def linear_callback(msg):
         print(vels("Backward   ", control_linear_vel, target_linear_vel))
     else:
         target_linear_vel = 0
-        if control_linear_vel >= 0.1:
+        if control_linear_vel >= 0.05:
             control_linear_vel = control_linear_vel - INC
-        elif control_linear_vel <= -0.1:
+        elif control_linear_vel <= -0.05:
             control_linear_vel = control_linear_vel + INC
         else:
             control_linear_vel = 0
