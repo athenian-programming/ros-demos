@@ -23,7 +23,7 @@ def linear_callback(msg):
     if val >= 0.1:
         target_linear_vel = target_linear_vel + (0.01 * val)
         print(vels("Forward   ", target_linear_vel, target_ang_vel))
-    elif val <= 0.1:
+    elif val <= -0.1:
         target_linear_vel = target_linear_vel - (0.01 * -val)
         print(vels("Backward   ", target_linear_vel, target_ang_vel))
     else:
@@ -49,7 +49,7 @@ def ang_callback(msg):
     if val >= 0.1:
         target_ang_vel = target_ang_vel + (0.1 * val)
         print(vels("Left    ", target_linear_vel, target_ang_vel))
-    elif val <= 0.1:
+    elif val <= -0.1:
         target_ang_vel = target_ang_vel - (0.1 * -val)
         print(vels("Right   ", target_linear_vel, target_ang_vel))
     else:
