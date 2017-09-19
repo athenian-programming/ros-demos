@@ -4,8 +4,8 @@ import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
-INC = 0.01 / 4.0
-
+INC = 0.01
+MULT = 4.0
 
 def vels(dir, target, control):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target, control)
@@ -25,9 +25,9 @@ def linear_callback(msg):
     if val >= 0.1:
         target_linear_vel = val
         if target_linear_vel > control_linear_vel:
-            control_linear_vel = control_linear_vel + INC
+            control_linear_vel = control_linear_vel + (INC * MULT)
         elif target_linear_vel < control_linear_vel:
-            control_linear_vel = control_linear_vel - INC
+            control_linear_vel = control_linear_vel - (INC * MULT)
         else:
             control_linear_vel = target_linear_vel
         control_linear_vel = min(1.0, control_linear_vel)
@@ -35,9 +35,9 @@ def linear_callback(msg):
     elif val <= -0.1:
         target_linear_vel = val
         if target_linear_vel > control_linear_vel:
-            control_linear_vel = control_linear_vel + INC
+            control_linear_vel = control_linear_vel + (INC * MULT)
         elif target_linear_vel < control_linear_vel:
-            control_linear_vel = control_linear_vel - INC
+            control_linear_vel = control_linear_vel - (INC * MULT)
         else:
             control_linear_vel = target_linear_vel
         control_linear_vel = max(-1.0, control_linear_vel)
