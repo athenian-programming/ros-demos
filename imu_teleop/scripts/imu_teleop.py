@@ -12,7 +12,7 @@ def vels(dir, target_linear_vel, target_ang_vel):
 def linear_callback(msg):
     global linear_init, target_linear_vel, control_linear_vel, target_ang_vel
 
-    raw_val = int((msg.pose.pose.orientation.y * 100))
+    raw_val = int((msg.pose.pose.orientation.y * 10))
 
     if linear_init is None:
         linear_init = raw_val
@@ -88,6 +88,6 @@ if __name__ == '__main__':
         twist.angular.x = 0
         twist.angular.y = 0
         twist.angular.z = control_ang_vel
-        pub.publish(twist)
-        print("Writing...")
+        # pub.publish(twist)
+        # print("Writing...")
         rate.sleep()
