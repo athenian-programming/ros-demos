@@ -22,16 +22,15 @@ def linear_callback(msg):
 
     if val >= 0.01:
         target_linear_vel = target_linear_vel + (0.01 * val)
-        # print(vels("Forward   ", target_linear_vel, target_ang_vel))
+        print(vels("Forward   ", target_linear_vel, target_ang_vel))
     elif val <= 0.01:
         target_linear_vel = target_linear_vel - (0.01 * -val)
-        #print(vels("Backward   ", target_linear_vel, target_ang_vel))
+        print(vels("Backward   ", target_linear_vel, target_ang_vel))
     else:
         target_linear_vel = 0
         control_linear_vel = 0
-        # print(vels("Linear Stop", target_linear_vel, target_ang_vel))
+        print(vels("Linear Stop", target_linear_vel, target_ang_vel))
 
-    print(val)
     control_linear_vel = min(target_linear_vel,
                              control_linear_vel + (
                                  0.01 / 4.0)) if target_linear_vel > control_linear_vel else target_linear_vel
@@ -39,7 +38,7 @@ def linear_callback(msg):
 def ang_callback(msg):
     global ang_init, target_ang_vel, control_ang_vel, target_linear_vel
 
-    raw_val = msg.pose.pose.orientation.z
+    raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
 
     if ang_init is None:
         ang_init = raw_val
