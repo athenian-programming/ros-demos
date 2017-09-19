@@ -5,7 +5,9 @@
 * [TurtleBot3 Keyboard Control](docs/tb3_keyboard.md)
 * [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 * [Topic Basics](topic_basics/)
-* [Topic Remapping](topic_remapper/)
+* [XBox Teleop](xbox_teleop/)
+* [Euclid Teleop](euclid_teleop/)
+* [IMU Teleop](imu_teleop/)
 
 
 ## Installation

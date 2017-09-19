@@ -3,5 +3,5 @@
     <include file="$(find teleop_twist_joy)/launch/teleop.launch"/>
 
     <!-- Run xbox_teleop -->
-    <node name="xbox_teleop" pkg="topic_remapper" type="xbox_teleop.py" output="screen"/>
+    <node name="xbox_teleop" pkg="xbox_teleop" type="xbox_teleop.py" output="screen"/>
 </launch>
