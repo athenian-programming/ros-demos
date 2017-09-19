@@ -4,22 +4,22 @@ import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
-INC = 0.01 / 5.0
+INC = 0.01 / 4.0
 
 def vels(dir, target_linear_vel, target_ang_vel):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target_linear_vel, target_ang_vel)
 
 
 def linear_callback(msg):
-    global linear_init, target_linear_vel, control_linear_vel, target_ang_vel
+    global linear_adj, target_linear_vel, control_linear_vel, target_ang_vel
 
     raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
 
-    if linear_init is None:
-        linear_init = raw_val
+    if linear_adj is None:
+        linear_adj = raw_val
 
     # Normalize to initial value
-    val = raw_val - linear_init
+    val = raw_val - linear_adj
 
     if val >= 0.1:
         target_linear_vel = val
@@ -39,26 +39,26 @@ def linear_callback(msg):
                                      INC * -val)) if target_linear_vel < control_linear_vel else target_linear_vel
         print(vels("Backward   ", control_linear_vel, target_linear_vel))
     else:
+        target_linear_vel = 0
         if control_linear_vel >= 0.1:
-            control_linear_vel = control_linear_vel - 0.01
+            control_linear_vel = control_linear_vel - INC
         elif control_linear_vel <= -0.1:
-            control_linear_vel = control_linear_vel + 0.01
+            control_linear_vel = control_linear_vel + INC
         else:
             control_linear_vel = 0
-        target_linear_vel = 0
         print(vels("Linear Stop", control_linear_vel, target_linear_vel))
 
 
 def ang_callback(msg):
-    global ang_init, target_ang_vel, control_ang_vel, target_linear_vel
+    global ang_adj, target_ang_vel, control_ang_vel, target_linear_vel
 
     raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
 
-    if ang_init is None:
-        ang_init = raw_val
+    if ang_adj is None:
+        ang_adj = raw_val
 
     # Normalize to initial value
-    val = raw_val - ang_init
+    val = raw_val - ang_adj
 
     if val >= 0.1:
         target_ang_vel = target_ang_vel + (0.01 * val)
@@ -76,8 +76,8 @@ def ang_callback(msg):
 
 
 if __name__ == '__main__':
-    linear_init = None
-    ang_init = None
+    linear_adj = None
+    ang_adj = None
     target_linear_vel = 0
     target_ang_vel = 0
     control_linear_vel = 0
@@ -101,6 +101,5 @@ if __name__ == '__main__':
         twist.angular.x = 0
         twist.angular.y = 0
         twist.angular.z = control_ang_vel
-        # print("Writing: %s" % control_linear_vel)
         pub.publish(twist)
         rate.sleep()
