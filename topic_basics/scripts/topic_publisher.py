@@ -10,7 +10,7 @@ if __name__ == '__main__':
     count = 0
 
     while not rospy.is_shutdown():
-        print "Publishing: " + str(count)
+        print("Publishing: " + str(count))
         pub.publish(count)
         count += 1
         rate.sleep()

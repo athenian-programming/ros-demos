@@ -16,6 +16,6 @@ if __name__ == '__main__':
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
     sub = rospy.Subscriber('/cmd_vel_mux/input/teleop', Twist, callback)
-    print "Listening..."
+    print("Listening...")
 
     rospy.spin()

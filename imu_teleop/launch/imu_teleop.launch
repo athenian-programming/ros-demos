@@ -1,7 +1,4 @@
 <launch>
-    <!-- Run the teleoperation package for the XBox controller -->
-    <include file="$(find teleop_twist_joy)/launch/teleop.launch"/>
-
-    <!-- Run xbox_teleop -->
-    <node name="xbox_teleop" pkg="xbox_teleop" type="xbox_teleop.py" output="screen"/>
+    <!-- Run imu_teleop -->
+    <node name="imu_teleop" pkg="imu_teleop" type="imu_teleop.py" output="screen"/>
 </launch>

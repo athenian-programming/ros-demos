@@ -2,15 +2,15 @@
 
 ## Demos
 
-* [TurtleBot3 Keyboard Control](docs/tb3_keyboard.md)
-* [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 * [Topic Basics](topic_basics/)
+* [Keyboard Teleop](docs/tb3_keyboard.md)
 * [XBox Teleop](xbox_teleop/)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
+* [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 
 
-## Installation
+## Setup
 
 Install the demo packages with:
 
@@ -21,7 +21,6 @@ $ cd ~/catkin_ws
 $ catkin_make
 ```
 
-## Setup
 Add these statements (replacing ubuntu1 with your Ubuntu PC hostname) to your *~/.bashrc*:
 ```bash
 source /opt/ros/kinetic/setup.bash

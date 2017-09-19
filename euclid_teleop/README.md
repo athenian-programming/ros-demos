@@ -1,5 +1,3 @@
-# Topic Remapper Demos
-
 ## Euclid Teleop Remapper
 
 1) Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
@@ -8,10 +6,10 @@
 Run *twist_remapper.py* with: 
 ```bash
 # On Ubunutu
-$ roslaunch topic_remapper twist_remapper.launch
+$ roslaunch euclid_teleop twist_remapper.launch
 ```
 
-It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
+Alternatively, specify the remapping in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
 ```xml
 <launch>
 
@@ -28,28 +26,3 @@ It would be much better to do the remapping in the *~/catkin_ws/src/turtlebot3/t
 
 The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
-## XBox Teleop
-
-### Installation
-
-Install the necessary packages with:
-````bash
-# On Ubunutu
-$ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
-````
-
-### Usage
-
-Launch the Xbox USB Gamepad Userspace Driver with:
-```bash
-$ sudo xboxdrv --silent
-# If you get a LIBUSB_ERROR_BUSY error, fix it with:
-# sudo rmmod xpad
-```
-
-Run *xbox_remapper.launch* with: 
-```bash
-$ roslaunch topic_remapper xbox_teleop.launch
-```
-
-This launches both the xbox_teleop node and the teleoperation package for the XBox controller.

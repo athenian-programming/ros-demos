@@ -28,30 +28,30 @@ def callback(msg):
     # Map button cross
     if msg.axes[7] == 1.0:
         target_linear_vel = bound(target_linear_vel + LINEAR_ADJ)
-        print vels("Forward ", target_linear_vel, target_ang_vel)
+        print(vels("Forward ", target_linear_vel, target_ang_vel))
     elif msg.axes[7] == -1.0:
         target_linear_vel = bound(target_linear_vel - LINEAR_ADJ)
-        print vels("Backward", target_linear_vel, target_ang_vel)
+        print(vels("Backward", target_linear_vel, target_ang_vel))
     elif msg.axes[6] == 1.0:
         target_ang_vel = bound(target_ang_vel + ANG_ADJ)
-        print vels("Left    ", target_linear_vel, target_ang_vel)
+        print(vels("Left    ", target_linear_vel, target_ang_vel))
     elif msg.axes[6] == -1.0:
         target_ang_vel = bound(target_ang_vel - ANG_ADJ)
-        print vels("Right   ", target_linear_vel, target_ang_vel)
+        print(vels("Right   ", target_linear_vel, target_ang_vel))
 
     # Map left joystick
     elif msg.axes[1] > 0.0:
         target_linear_vel = bound(target_linear_vel + (LINEAR_ADJ * msg.axes[1]))
-        print vels("Forward   ", target_linear_vel, target_ang_vel)
+        print(vels("Forward   ", target_linear_vel, target_ang_vel))
     elif msg.axes[1] < 0.0:
         target_linear_vel = bound(target_linear_vel - (LINEAR_ADJ * -msg.axes[1]))
-        print vels("Backward   ", target_linear_vel, target_ang_vel)
+        print(vels("Backward   ", target_linear_vel, target_ang_vel))
     elif msg.axes[0] > 0.0:
         target_ang_vel = bound(target_ang_vel + (ANG_ADJ * msg.axes[0]))
-        print vels("Left    ", target_linear_vel, target_ang_vel)
+        print(vels("Left    ", target_linear_vel, target_ang_vel))
     elif msg.axes[0] < 0.0:
         target_ang_vel = bound(target_ang_vel - (ANG_ADJ * -msg.axes[0]))
-        print vels("Right   ", target_linear_vel, target_ang_vel)
+        print(vels("Right   ", target_linear_vel, target_ang_vel))
 
     # Map all right button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
@@ -73,7 +73,7 @@ def callback(msg):
             target_ang_vel = 0
             control_ang_vel = 0
 
-        print vels("Stop    ", target_linear_vel, target_ang_vel)
+        print(vels("Stop    ", target_linear_vel, target_ang_vel))
 
     if target_linear_vel > control_linear_vel:
         control_linear_vel = min(target_linear_vel, control_linear_vel + (LINEAR_ADJ / 4.0))
@@ -105,6 +105,6 @@ if __name__ == '__main__':
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
     sub = rospy.Subscriber('/joy', Joy, callback)
-    print "Listening..."
+    print("Listening...")
 
     rospy.spin()
