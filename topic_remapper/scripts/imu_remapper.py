@@ -74,7 +74,8 @@ if __name__ == '__main__':
     rospy.init_node('xbox_remapper')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-    sub = rospy.Subscriber('/joy', Odometry, callback)
+    linear_sub = rospy.Subscriber('/realsense/odom/pose/pose/orientation/y', Odometry, ang_callback)
+    ang_sub = rospy.Subscriber('/realsense/odom/pose/pose/orientation/z', Odometry, ang_callback)
     print "Listening..."
 
     rospy.spin()
