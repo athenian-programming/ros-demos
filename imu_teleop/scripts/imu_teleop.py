@@ -35,9 +35,9 @@ def linear_callback(msg):
     elif val <= -0.1:
         target_linear_vel = val
         if target_linear_vel > control_linear_vel:
-            control_linear_vel = control_linear_vel - INC
-        elif target_linear_vel < control_linear_vel:
             control_linear_vel = control_linear_vel + INC
+        elif target_linear_vel < control_linear_vel:
+            control_linear_vel = control_linear_vel - INC
         else:
             control_linear_vel = target_linear_vel
         control_linear_vel = max(-1.0, control_linear_vel)
