@@ -1,7 +1,14 @@
-## Euclid Teleop Remapper
+# Euclid Teleop 
 
-1) Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
-2) Review the topics in the *rqt* **Topic Monitor**
+## Usage
+
+Launch the TurtleBot3 operation packages and enable the robot with:
+```bash
+# On TurtleBot3
+$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
+
+Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
 
 Run *twist_remapper.py* with: 
 ```bash
@@ -12,7 +19,6 @@ $ roslaunch euclid_teleop twist_remapper.launch
 Alternatively, specify the remapping in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
 ```xml
 <launch>
-
   <!-- The remap tag has to come before the affected node tag -->
   <remap from="cmd_vel" to="cmd_vel_mux/input/teleop"/>
   

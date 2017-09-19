@@ -1,8 +1,8 @@
-# TurtleBot3 Keyboard Control Demo
+# TurtleBot3 Keyboard Teleop Demo
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 
-Launch the TurtleBot3 operation packages and enable robot with:
+Launch the TurtleBot3 operation packages and enable the robot with:
 ```bash
 # On TurtleBot3
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch

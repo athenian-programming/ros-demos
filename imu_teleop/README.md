@@ -7,7 +7,7 @@
 
 Run *twist_remapper.py* with: 
 ```bash
-# On Ubunutu
+# On Ubunutu PC
 $ roslaunch topic_remapper twist_remapper.launch
 ```
 
@@ -34,7 +34,7 @@ The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
 Install the necessary packages with:
 ````bash
-# On Ubunutu
+# On Ubunutu PC
 $ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 ````
 

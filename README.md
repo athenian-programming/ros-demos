@@ -3,7 +3,7 @@
 ## Demos
 
 * [Topic Basics](topic_basics/)
-* [Keyboard Teleop](docs/tb3_keyboard.md)
+* [Keyboard Teleop](docs/keyboard_teleop.md)
 * [XBox Teleop](xbox_teleop/)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
