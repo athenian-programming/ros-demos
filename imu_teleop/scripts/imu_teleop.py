@@ -6,7 +6,7 @@ from nav_msgs.msg import Odometry
 
 
 def vels(dir, target_linear_vel, target_ang_vel):
-    return "%s:\tlinear vel %s\t angular vel %s" % (dir, target_linear_vel, target_ang_vel)
+    return "%s:\tcontrol vel %s\t target vel %s" % (dir, target_linear_vel, target_ang_vel)
 
 
 def linear_callback(msg):
@@ -25,22 +25,22 @@ def linear_callback(msg):
         control_linear_vel = min(1.0,
                                  control_linear_vel + (
                                      0.001 * val)) if target_linear_vel > control_linear_vel else target_linear_vel
-        print(vels("Forward   ", control_linear_vel, target_ang_vel))
+        print(vels("Forward   ", control_linear_vel, target_linear_vel))
     elif val <= -0.1:
         target_linear_vel = val
         control_linear_vel = max(-1.0,
                                  control_linear_vel - (
                                      0.001 * -val)) if target_linear_vel < control_linear_vel else target_linear_vel
-        print(vels("Backward   ", control_linear_vel, target_ang_vel))
+        print(vels("Backward   ", control_linear_vel, target_linear_vel))
     else:
         if control_linear_vel >= 0.1:
             control_linear_vel = control_linear_vel - .01
         elif control_linear_vel <= 0.1:
             control_linear_vel = control_linear_vel + .01
-        else
+        else:
             control_linear_vel = 0
         target_linear_vel = 0
-        print(vels("Linear Stop", control_linear_vel, target_ang_vel))
+        print(vels("Linear Stop", control_linear_vel, target_linear_vel))
 
 
 def ang_callback(msg):
