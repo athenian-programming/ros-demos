@@ -90,6 +90,6 @@ if __name__ == '__main__':
         twist.angular.x = 0
         twist.angular.y = 0
         twist.angular.z = control_ang_vel
-        print("Writing: " + control_linear_vel)
+        print("Writing: %s" % control_linear_vel)
         pub.publish(twist)
         rate.sleep()
