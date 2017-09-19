@@ -22,13 +22,13 @@ def linear_callback(msg):
 
     if val >= 0.1:
         target_linear_vel = val
-        control_linear_vel = min(target_linear_vel,
+        control_linear_vel = min(2.0,
                                  control_linear_vel + (
                                      0.01 * val)) if target_linear_vel > control_linear_vel else target_linear_vel
         print(vels("Forward   ", target_linear_vel, target_ang_vel))
     elif val <= -0.1:
         target_linear_vel = val
-        control_linear_vel = max(target_linear_vel,
+        control_linear_vel = max(-2.0,
                                  control_linear_vel - (
                                      0.01 * -val)) if target_linear_vel > control_linear_vel else target_linear_vel
         print(vels("Backward   ", target_linear_vel, target_ang_vel))
