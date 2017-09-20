@@ -4,18 +4,9 @@ import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
-INC = 0.01
-MULT = 0.25
-ZERO_TOP = 0.05
-ZERO_BOTTOM = -0.05
-
-
-def vels(dir, target, control):
-    return "%s:\tcontrol vel %s\t target vel %s" % (dir, target, control)
-
 
 def linear_callback(msg):
-    global linear_raw, linear_adj, curr_linear
+    global linear_adj, curr_linear
 
     linear_raw = max(-1.0, min(1.0, ((msg.pose.pose.orientation.y / 2.0) * 10) / 5.0))
 
@@ -27,7 +18,7 @@ def linear_callback(msg):
 
 
 def ang_callback(msg):
-    global ang_raw, ang_adj, curr_ang
+    global ang_adj, curr_ang
 
     ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * 2.0 * 10) / 5.0))
 
@@ -39,8 +30,6 @@ def ang_callback(msg):
 
 
 if __name__ == '__main__':
-    linear_raw = 0
-    ang_raw = 0
     linear_adj = None
     ang_adj = None
     curr_linear = 0
