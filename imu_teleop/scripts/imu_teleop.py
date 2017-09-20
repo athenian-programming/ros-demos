@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
 LINEAR_SENSITIVITY = 3.0
-ANG_SENSITIVITY = 3.0
+ANG_SENSITIVITY = 4.0
 
 def linear_callback(msg):
     global linear_adj, curr_linear
@@ -49,14 +49,24 @@ if __name__ == '__main__':
 
     rate = rospy.Rate(10)
 
-    while True:
+    try:
+        while True:
+            twist = Twist()
+            twist.linear.x = curr_linear
+            twist.linear.y = 0
+            twist.linear.z = 0
+            twist.angular.x = 0
+            twist.angular.y = 0
+            twist.angular.z = curr_ang
+            pub.publish(twist)
+            print("linear: %s\tangular: %s" % (curr_linear, curr_ang))
+            rate.sleep()
+    finally:
         twist = Twist()
-        twist.linear.x = curr_linear
+        twist.linear.x = 0
         twist.linear.y = 0
         twist.linear.z = 0
         twist.angular.x = 0
         twist.angular.y = 0
-        twist.angular.z = curr_ang
-        pub.publish(twist)
-        print("linear: %s\tangular: %s" % (curr_linear, curr_ang))
-        rate.sleep()
+        twist.angular.z = 0
+        pub.publish("Closing...")
