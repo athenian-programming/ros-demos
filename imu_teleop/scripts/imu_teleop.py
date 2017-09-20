@@ -9,6 +9,7 @@ MULT = 0.25
 ZERO_TOP = 0.05
 ZERO_BOTTOM = -0.05
 
+
 def vels(dir, target, control):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target, control)
 
@@ -42,7 +43,7 @@ def linear_callback(msg):
         else:
             curr_linear = target_linear
         curr_linear = max(-1.0, curr_linear)
-        #print(vels("Backward   ", curr_linear, target_linear))
+        # print(vels("Backward   ", curr_linear, target_linear))
     else:
         target_linear = 0
         if curr_linear >= ZERO_TOP:
@@ -51,7 +52,9 @@ def linear_callback(msg):
             curr_linear = curr_linear + INC
         else:
             curr_linear = 0
-            #print(vels("Linear Stop", curr_linear, target_linear))
+            # print(vels("Linear Stop", curr_linear, target_linear))
+
+    curr_linear = linear_raw - linear_adj
 
 def ang_callback(msg):
     global ang_raw, ang_adj, target_ang, curr_ang
@@ -72,7 +75,7 @@ def ang_callback(msg):
         else:
             curr_ang = target_ang
         curr_ang = min(1.0, curr_ang)
-        #print(vels("Right   ", curr_ang, target_ang))
+        # print(vels("Right   ", curr_ang, target_ang))
     elif target_ang <= ZERO_BOTTOM:
         if target_ang > curr_ang:
             curr_ang = curr_ang + (INC * MULT)
@@ -81,7 +84,7 @@ def ang_callback(msg):
         else:
             curr_ang = target_ang
         curr_ang = max(-1.0, curr_ang)
-        #print(vels("Left   ", curr_ang, target_ang))
+        # print(vels("Left   ", curr_ang, target_ang))
     else:
         target_ang = 0
         if curr_ang >= ZERO_TOP:
@@ -90,7 +93,8 @@ def ang_callback(msg):
             curr_ang = curr_ang + INC
         else:
             curr_ang = 0
-            #print(vels("Angular Stop", curr_ang, target_ang))
+
+            # print(vels("Angular Stop", curr_ang, target_ang))
 
 if __name__ == '__main__':
     linear_raw = 0
