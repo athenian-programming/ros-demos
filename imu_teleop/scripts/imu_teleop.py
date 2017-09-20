@@ -38,6 +38,7 @@ if __name__ == '__main__':
     ang_adj = None
     curr_linear = 0
     curr_ang = 0
+    count = 0;
 
     rospy.init_node('imu_teleop')
 
@@ -59,8 +60,9 @@ if __name__ == '__main__':
             twist.angular.y = 0
             twist.angular.z = curr_ang
             pub.publish(twist)
-            print("linear: %s\tangular: %s" % (curr_linear, curr_ang))
+            print("%s\tlinear: %s\tangular: %s" % (count, curr_linear, curr_ang))
             rate.sleep()
+            count = count + 1
     finally:
         twist = Twist()
         twist.linear.x = 0
