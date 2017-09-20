@@ -7,6 +7,7 @@
 * [XBox Teleop](xbox_teleop/)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
+* [RViz Viewer](docs/rviz.md)
 * [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 
 

@@ -4,6 +4,13 @@
 
 The *xbox_teleop.py* program subscribes to */joy* and publishes Twist values to */cmd_vel*.
 
+## Setup
+
+Install the necessary packages with:
+````bash
+# On Ubunutu PC
+$ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
+````
 
 ## Usage
 
@@ -20,19 +27,10 @@ $ sudo xboxdrv --silent
 # sudo rmmod xpad
 ```
 
-Run *xbox_remapper.launch* with: 
+Run *xbox_remapper.launch*, which launches both the xbox_teleop node and the teleoperation package 
+sfor the XBox controller, with: 
 ```bash
 On Ubuntu PC
 $ roslaunch xbox_teleop xbox_teleop.launch
 ```
 
-This launches both the xbox_teleop node and the teleoperation package for the XBox controller.
-
-
-## Setup
-
-Install the necessary packages with:
-````bash
-# On Ubunutu PC
-$ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
-````
