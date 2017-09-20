@@ -18,7 +18,7 @@ def linear_callback(msg):
     global linear_raw, linear_adj, target_linear, curr_linear
 
     # linear_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
-    linear_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.y * 10) / 5.0))
+    linear_raw = max(-1.0, min(1.0, ((msg.pose.pose.orientation.y / 2.0) * 10) / 5.0))
 
     if linear_adj is None:
         linear_adj = linear_raw
@@ -56,11 +56,12 @@ def linear_callback(msg):
 
     curr_linear = linear_raw - linear_adj
 
+
 def ang_callback(msg):
     global ang_raw, ang_adj, target_ang, curr_ang
 
     # ang_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
-    ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * 10) / 5.0))
+    ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * 2.0 * 10) / 5.0))
 
     if ang_adj is None:
         ang_adj = ang_raw
@@ -97,6 +98,7 @@ def ang_callback(msg):
 
             # print(vels("Angular Stop", curr_ang, target_ang))
     curr_ang = ang_raw - ang_adj
+
 
 if __name__ == '__main__':
     linear_raw = 0
