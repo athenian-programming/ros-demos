@@ -4,11 +4,14 @@ import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 
+LINEAR_SENSITIVITY = 3.0
+ANG_SENSITIVITY = 3.0
 
 def linear_callback(msg):
     global linear_adj, curr_linear
 
-    linear_raw = max(-1.0, min(1.0, ((msg.pose.pose.orientation.y / 4.0) * 10) / 5.0))
+    # Divide by LINEAR_SENSITIVITY to decrease sensitivity
+    linear_raw = max(-1.0, min(1.0, ((msg.pose.pose.orientation.y / LINEAR_SENSITIVITY) * 10) / 5.0))
 
     if linear_adj is None:
         linear_adj = linear_raw
@@ -20,8 +23,8 @@ def linear_callback(msg):
 def ang_callback(msg):
     global ang_adj, curr_ang
 
-    # Multiply
-    ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * 4.0 * 10) / 5.0))
+    # Multiply by ANG_SENSITIVITY to increase sensitivity
+    ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * ANG_SENSITIVITY * 10) / 5.0))
 
     if ang_adj is None:
         ang_adj = ang_raw
