@@ -14,15 +14,15 @@ def vels(dir, target, control):
 
 
 def linear_callback(msg):
-    global linear_adj, target_linear, curr_linear
+    global linear_raw, linear_adj, target_linear, curr_linear
 
-    raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
+    linear_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
 
     if linear_adj is None:
-        linear_adj = raw_val
+        linear_adj = linear_raw
 
     # Normalize to initial value
-    target_linear = raw_val - linear_adj
+    target_linear = linear_raw - linear_adj
 
     if target_linear >= ZERO_TOP:
         if target_linear > curr_linear:
@@ -32,7 +32,7 @@ def linear_callback(msg):
         else:
             curr_linear = target_linear
         curr_linear = min(1.0, curr_linear)
-        print(vels("Forward   ", curr_linear, target_linear))
+        # print(vels("Forward   ", curr_linear, target_linear))
     elif target_linear <= ZERO_BOTTOM:
         if target_linear > curr_linear:
             curr_linear = curr_linear + (INC * MULT)
@@ -41,7 +41,7 @@ def linear_callback(msg):
         else:
             curr_linear = target_linear
         curr_linear = max(-1.0, curr_linear)
-        print(vels("Backward   ", curr_linear, target_linear))
+        #print(vels("Backward   ", curr_linear, target_linear))
     else:
         target_linear = 0
         if curr_linear >= ZERO_TOP:
@@ -50,18 +50,18 @@ def linear_callback(msg):
             curr_linear = curr_linear + INC
         else:
             curr_linear = 0
-        print(vels("Linear Stop", curr_linear, target_linear))
+            #print(vels("Linear Stop", curr_linear, target_linear))
 
 def ang_callback(msg):
-    global ang_adj, target_ang, curr_ang
+    global ang_raw, ang_adj, target_ang, curr_ang
 
-    raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
+    ang_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
 
     if ang_adj is None:
-        ang_adj = raw_val
+        ang_adj = ang_raw
 
     # Normalize to initial value
-    target_ang = raw_val - ang_adj
+    target_ang = ang_raw - ang_adj
 
     if target_ang >= ZERO_TOP:
         if target_ang > curr_ang:
@@ -71,7 +71,7 @@ def ang_callback(msg):
         else:
             curr_ang = target_ang
         curr_ang = min(1.0, curr_ang)
-        print(vels("Right   ", curr_ang, target_ang))
+        #print(vels("Right   ", curr_ang, target_ang))
     elif target_ang <= ZERO_BOTTOM:
         if target_ang > curr_ang:
             curr_ang = curr_ang + (INC * MULT)
@@ -80,7 +80,7 @@ def ang_callback(msg):
         else:
             curr_ang = target_ang
         curr_ang = max(-1.0, curr_ang)
-        print(vels("Left   ", curr_ang, target_ang))
+        #print(vels("Left   ", curr_ang, target_ang))
     else:
         target_ang = 0
         if curr_ang >= ZERO_TOP:
@@ -89,9 +89,11 @@ def ang_callback(msg):
             curr_ang = curr_ang + INC
         else:
             curr_ang = 0
-        print(vels("Angular Stop", curr_ang, target_ang))
+            #print(vels("Angular Stop", curr_ang, target_ang))
 
 if __name__ == '__main__':
+    linear_raw = 0
+    ang_raw = 0
     linear_adj = None
     ang_adj = None
     target_linear = 0
@@ -118,4 +120,5 @@ if __name__ == '__main__':
         twist.angular.y = 0
         twist.angular.z = curr_ang
         pub.publish(twist)
+        print("linear: %s\tangular: %s" % (linear_raw, ang_raw))
         rate.sleep()
