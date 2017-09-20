@@ -59,7 +59,8 @@ def linear_callback(msg):
 def ang_callback(msg):
     global ang_raw, ang_adj, target_ang, curr_ang
 
-    ang_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
+    # ang_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
+    ang_raw = max(-1.0, min(1.0, (msg.pose.pose.orientation.z * 10) / 5.0))
 
     if ang_adj is None:
         ang_adj = ang_raw
@@ -95,6 +96,7 @@ def ang_callback(msg):
             curr_ang = 0
 
             # print(vels("Angular Stop", curr_ang, target_ang))
+    curr_ang = ang_raw - ang_adj
 
 if __name__ == '__main__':
     linear_raw = 0
