@@ -6,13 +6,15 @@ from nav_msgs.msg import Odometry
 
 INC = 0.01
 MULT = 0.25
+ZERO_TOP = 0.05
+ZERO_BOTTOM = -0.05
 
 def vels(dir, target, control):
     return "%s:\tcontrol vel %s\t target vel %s" % (dir, target, control)
 
 
 def linear_callback(msg):
-    global linear_adj, target_linear_vel, control_linear_vel, target_ang_vel
+    global linear_adj, target_linear, curr_linear
 
     raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
 
@@ -20,41 +22,38 @@ def linear_callback(msg):
         linear_adj = raw_val
 
     # Normalize to initial value
-    val = raw_val - linear_adj
+    target_linear = raw_val - linear_adj
 
-    if val >= 0.05:
-        target_linear_vel = val
-        if target_linear_vel > control_linear_vel:
-            control_linear_vel = control_linear_vel + (INC * MULT)
-        elif target_linear_vel < control_linear_vel:
-            control_linear_vel = control_linear_vel - (INC * MULT)
+    if target_linear >= ZERO_TOP:
+        if target_linear > curr_linear:
+            curr_linear = curr_linear + (INC * MULT)
+        elif target_linear < curr_linear:
+            curr_linear = curr_linear - (INC * MULT)
         else:
-            control_linear_vel = target_linear_vel
-        control_linear_vel = min(1.0, control_linear_vel)
-        print(vels("Forward   ", control_linear_vel, target_linear_vel))
-    elif val <= -0.05:
-        target_linear_vel = val
-        if target_linear_vel > control_linear_vel:
-            control_linear_vel = control_linear_vel + (INC * MULT)
-        elif target_linear_vel < control_linear_vel:
-            control_linear_vel = control_linear_vel - (INC * MULT)
+            curr_linear = target_linear
+        curr_linear = min(1.0, curr_linear)
+        print(vels("Forward   ", curr_linear, target_linear))
+    elif target_linear <= ZERO_BOTTOM:
+        if target_linear > curr_linear:
+            curr_linear = curr_linear + (INC * MULT)
+        elif target_linear < curr_linear:
+            curr_linear = curr_linear - (INC * MULT)
         else:
-            control_linear_vel = target_linear_vel
-        control_linear_vel = max(-1.0, control_linear_vel)
-        print(vels("Backward   ", control_linear_vel, target_linear_vel))
+            curr_linear = target_linear
+        curr_linear = max(-1.0, curr_linear)
+        print(vels("Backward   ", curr_linear, target_linear))
     else:
-        target_linear_vel = 0
-        if control_linear_vel >= 0.05:
-            control_linear_vel = control_linear_vel - INC
-        elif control_linear_vel <= -0.05:
-            control_linear_vel = control_linear_vel + INC
+        target_linear = 0
+        if curr_linear >= ZERO_TOP:
+            curr_linear = curr_linear - INC
+        elif curr_linear <= ZERO_BOTTOM:
+            curr_linear = curr_linear + INC
         else:
-            control_linear_vel = 0
-        print(vels("Linear Stop", control_linear_vel, target_linear_vel))
-
+            curr_linear = 0
+        print(vels("Linear Stop", curr_linear, target_linear))
 
 def ang_callback(msg):
-    global ang_adj, target_ang_vel, control_ang_vel, target_linear_vel
+    global ang_adj, target_ang, curr_ang
 
     raw_val = max(-1.0, min(1.0, int((msg.pose.pose.orientation.z * 10)) / 5.0))
 
@@ -62,36 +61,49 @@ def ang_callback(msg):
         ang_adj = raw_val
 
     # Normalize to initial value
-    val = raw_val - ang_adj
+    target_ang = raw_val - ang_adj
 
-    if val >= 0.1:
-        target_ang_vel = target_ang_vel + (0.01 * val)
-        print(vels("Left    ", target_linear_vel, target_ang_vel))
-    elif val <= -0.1:
-        target_ang_vel = target_ang_vel - (0.01 * -val)
-        print(vels("Right   ", target_linear_vel, target_ang_vel))
+    if target_ang >= ZERO_TOP:
+        if target_ang > curr_ang:
+            curr_ang = curr_ang + (INC * MULT)
+        elif target_ang < curr_ang:
+            curr_ang = curr_ang - (INC * MULT)
+        else:
+            curr_ang = target_ang
+        curr_ang = min(1.0, curr_ang)
+        print(vels("Right   ", curr_ang, target_ang))
+    elif target_ang <= ZERO_BOTTOM:
+        if target_ang > curr_ang:
+            curr_ang = curr_ang + (INC * MULT)
+        elif target_ang < curr_ang:
+            curr_ang = curr_ang - (INC * MULT)
+        else:
+            curr_ang = target_ang
+        curr_ang = max(-1.0, curr_ang)
+        print(vels("Left   ", curr_ang, target_ang))
     else:
-        target_ang_vel = 0
-        control_ang_vel = 0
-        print(vels("Angular Stop", target_linear_vel, target_ang_vel))
-
-    control_ang_vel = min(target_ang_vel,
-                          control_ang_vel + (0.01 / 4.0)) if target_ang_vel > control_ang_vel else target_ang_vel
-
+        target_ang = 0
+        if curr_ang >= ZERO_TOP:
+            curr_ang = curr_ang - INC
+        elif curr_ang <= ZERO_BOTTOM:
+            curr_ang = curr_ang + INC
+        else:
+            curr_ang = 0
+        print(vels("Angular Stop", curr_ang, target_ang))
 
 if __name__ == '__main__':
     linear_adj = None
     ang_adj = None
-    target_linear_vel = 0
-    target_ang_vel = 0
-    control_linear_vel = 0
-    control_ang_vel = 0
+    target_linear = 0
+    target_ang = 0
+    curr_linear = 0
+    curr_ang = 0
 
     rospy.init_node('imu_teleop')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
     rospy.Subscriber('/realsense/odom', Odometry, linear_callback)  # /pose/pose/orientation/y
-    #rospy.Subscriber('/realsense/odom', Odometry, ang_callback)  # /pose/pose/orientation/z
+    rospy.Subscriber('/realsense/odom', Odometry, ang_callback)  # /pose/pose/orientation/z
 
     print("Listening...")
 
@@ -99,11 +111,11 @@ if __name__ == '__main__':
 
     while True:
         twist = Twist()
-        twist.linear.x = control_linear_vel
+        twist.linear.x = curr_linear
         twist.linear.y = 0
         twist.linear.z = 0
         twist.angular.x = 0
         twist.angular.y = 0
-        twist.angular.z = control_ang_vel
+        twist.angular.z = curr_ang
         pub.publish(twist)
         rate.sleep()

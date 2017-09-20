@@ -23,7 +23,7 @@ def bound(val):
 
 
 def callback(msg):
-    global pub, target_linear_vel, target_ang_vel, control_linear_vel, control_ang_vel
+    global pub, target_linear, target_ang, curr_linear, curr_ang
 
     # Map button cross
     if msg.axes[7] == 1.0:
@@ -96,10 +96,10 @@ def callback(msg):
 
 
 if __name__ == '__main__':
-    target_linear_vel = 0
-    target_ang_vel = 0
-    control_linear_vel = 0
-    control_ang_vel = 0
+    target_linear = 0
+    target_ang = 0
+    curr_linear = 0
+    curr_ang = 0
 
     rospy.init_node('xbox_teleop')
 
