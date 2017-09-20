@@ -1,5 +1,10 @@
 # XBox Teleop
 
+## Description
+
+The *xbox_teleop.py* program subscribes to */joy* and publishes Twist values to */cmd_vel*.
+
+
 ## Usage
 
 Launch the TurtleBot3 operation packages and enable the robot with:

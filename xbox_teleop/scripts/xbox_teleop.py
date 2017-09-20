@@ -9,8 +9,8 @@ ANG_ADJ = 0.1
 STOP_FACTOR = 3
 
 
-def vels(dir, target_linear_vel, target_ang_vel):
-    return "%s:\tlinear vel %s\t angular vel %s" % (dir, target_linear_vel, target_ang_vel)
+def vels(dir, linear_vel, ang_vel):
+    return "%s:\tlinear vel %s\t angular vel %s" % (dir, linear_vel, ang_vel)
 
 
 def bound(val):
@@ -27,71 +27,71 @@ def callback(msg):
 
     # Map button cross
     if msg.axes[7] == 1.0:
-        target_linear_vel = bound(target_linear_vel + LINEAR_ADJ)
-        print(vels("Forward ", target_linear_vel, target_ang_vel))
+        target_linear = bound(target_linear + LINEAR_ADJ)
+        print(vels("Forward ", target_linear, target_ang))
     elif msg.axes[7] == -1.0:
-        target_linear_vel = bound(target_linear_vel - LINEAR_ADJ)
-        print(vels("Backward", target_linear_vel, target_ang_vel))
+        target_linear = bound(target_linear - LINEAR_ADJ)
+        print(vels("Backward", target_linear, target_ang))
     elif msg.axes[6] == 1.0:
-        target_ang_vel = bound(target_ang_vel + ANG_ADJ)
-        print(vels("Left    ", target_linear_vel, target_ang_vel))
+        target_ang = bound(target_ang + ANG_ADJ)
+        print(vels("Left    ", target_linear, target_ang))
     elif msg.axes[6] == -1.0:
-        target_ang_vel = bound(target_ang_vel - ANG_ADJ)
-        print(vels("Right   ", target_linear_vel, target_ang_vel))
+        target_ang = bound(target_ang - ANG_ADJ)
+        print(vels("Right   ", target_linear, target_ang))
 
     # Map left joystick
     elif msg.axes[1] > 0.0:
-        target_linear_vel = bound(target_linear_vel + (LINEAR_ADJ * msg.axes[1]))
-        print(vels("Forward   ", target_linear_vel, target_ang_vel))
+        target_linear = bound(target_linear + (LINEAR_ADJ * msg.axes[1]))
+        print(vels("Forward   ", target_linear, target_ang))
     elif msg.axes[1] < 0.0:
-        target_linear_vel = bound(target_linear_vel - (LINEAR_ADJ * -msg.axes[1]))
-        print(vels("Backward   ", target_linear_vel, target_ang_vel))
+        target_linear = bound(target_linear - (LINEAR_ADJ * -msg.axes[1]))
+        print(vels("Backward   ", target_linear, target_ang))
     elif msg.axes[0] > 0.0:
-        target_ang_vel = bound(target_ang_vel + (ANG_ADJ * msg.axes[0]))
-        print(vels("Left    ", target_linear_vel, target_ang_vel))
+        target_ang = bound(target_ang + (ANG_ADJ * msg.axes[0]))
+        print(vels("Left    ", target_linear, target_ang))
     elif msg.axes[0] < 0.0:
-        target_ang_vel = bound(target_ang_vel - (ANG_ADJ * -msg.axes[0]))
-        print(vels("Right   ", target_linear_vel, target_ang_vel))
+        target_ang = bound(target_ang - (ANG_ADJ * -msg.axes[0]))
+        print(vels("Right   ", target_linear, target_ang))
 
     # Map all right button presses to stop
     elif msg.buttons[0] == 1 or msg.buttons[1] == 1 or msg.buttons[2] == 1 or msg.buttons[3] == 1:
         linear_delta = LINEAR_ADJ * STOP_FACTOR
-        if target_linear_vel <= -linear_delta:
-            target_linear_vel = target_linear_vel + linear_delta
-        elif target_linear_vel >= linear_delta:
-            target_linear_vel = target_linear_vel - linear_delta
+        if target_linear <= -linear_delta:
+            target_linear = target_linear + linear_delta
+        elif target_linear >= linear_delta:
+            target_linear = target_linear - linear_delta
         else:
-            target_linear_vel = 0
-            control_linear_vel = 0
+            target_linear = 0
+            curr_linear = 0
 
         ang_delta = ANG_ADJ * STOP_FACTOR
-        if target_ang_vel <= -ang_delta:
-            target_ang_vel = target_ang_vel + ang_delta
-        elif target_ang_vel >= ang_delta:
-            target_ang_vel = target_ang_vel - ang_delta
+        if target_ang <= -ang_delta:
+            target_ang = target_ang + ang_delta
+        elif target_ang >= ang_delta:
+            target_ang = target_ang - ang_delta
         else:
-            target_ang_vel = 0
-            control_ang_vel = 0
+            target_ang = 0
+            curr_ang = 0
 
-        print(vels("Stop    ", target_linear_vel, target_ang_vel))
+        print(vels("Stop    ", target_linear, target_ang))
 
-    if target_linear_vel > control_linear_vel:
-        control_linear_vel = min(target_linear_vel, control_linear_vel + (LINEAR_ADJ / 4.0))
+    if target_linear > curr_linear:
+        curr_linear = min(target_linear, curr_linear + (LINEAR_ADJ / 4.0))
     else:
-        control_linear_vel = target_linear_vel
+        curr_linear = target_linear
 
-    if target_ang_vel > control_ang_vel:
-        control_ang_vel = min(target_ang_vel, control_ang_vel + (ANG_ADJ / 4.0))
+    if target_ang > curr_ang:
+        curr_ang = min(target_ang, curr_ang + (ANG_ADJ / 4.0))
     else:
-        control_ang_vel = target_ang_vel
+        curr_ang = target_ang
 
     twist = Twist()
-    twist.linear.x = bound(control_linear_vel)
+    twist.linear.x = bound(curr_linear)
     twist.linear.y = 0
     twist.linear.z = 0
     twist.angular.x = 0
     twist.angular.y = 0
-    twist.angular.z = bound(control_ang_vel)
+    twist.angular.z = bound(curr_ang)
     pub.publish(twist)
 
 
