@@ -45,9 +45,9 @@ if __name__ == '__main__':
     rospy.Subscriber('/realsense/odom', Odometry, linear_callback)  # /pose/pose/orientation/y
     rospy.Subscriber('/realsense/odom', Odometry, ang_callback)  # /pose/pose/orientation/z
 
-    print("Listening...")
-
     rate = rospy.Rate(10)
+
+    print("Listening...")
 
     try:
         while True:
