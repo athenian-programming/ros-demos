@@ -16,7 +16,8 @@ def vels(dir, target, control):
 def linear_callback(msg):
     global linear_raw, linear_adj, target_linear, curr_linear
 
-    linear_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
+    # linear_raw = max(-1.0, min(1.0, int((msg.pose.pose.orientation.y * 10)) / 5.0))
+    linear_raw = msg.pose.pose.orientation.y
 
     if linear_adj is None:
         linear_adj = linear_raw
