@@ -16,6 +16,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
 Launch keyboard teleop control with: 
 ```bash
+# On Ubuntu PC
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 

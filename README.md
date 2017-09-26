@@ -3,12 +3,14 @@
 ## Demos
 
 * [Topic Basics](topic_basics/)
+* [rqt Robot Steering plugin](docs/robot_steering.md)
 * [Keyboard Teleop](docs/keyboard_teleop.md)
 * [XBox Teleop](xbox_teleop/)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
 * [RViz Viewer](docs/rviz.md)
 * [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
+* [SLAM](docs/slam.md)
 
 
 ## Setup
@@ -29,7 +31,7 @@ source ~/catkin_ws/devel/setup.bash
 
 export TURTLEBOT3_MODEL=burger
 export ROS_HOSTNAME=ubuntu1.local
-export ROS_MASTER_URI=http://ubuntu1.local:11311
+export ROS_MASTER_URI=http://ubuntu2.local:11311
 ```
 
 Every machine connecting to *roscore* must have *ROS_MASTER_URI* set appropriately.
