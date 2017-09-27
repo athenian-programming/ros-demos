@@ -27,8 +27,8 @@ $ sudo xboxdrv --silent
 # sudo rmmod xpad
 ```
 
-Run *xbox_remapper.launch*, which launches both the xbox_teleop node and the teleoperation package 
-sfor the XBox controller, with: 
+Run *xbox_remapper.launch*, which launches both the xbox_teleop node and 
+the [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) packages, with: 
 ```bash
 On Ubuntu PC
 $ roslaunch xbox_teleop xbox_teleop.launch

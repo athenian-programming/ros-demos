@@ -41,7 +41,7 @@ $ rostopic bw counter
 $ rostopic hz counter
 ```
 
-Inspect the **counter** topic sfrom *rqt* with:
+Inspect the **counter** topics from *rqt* with:
 ```bash
 $ rqt
 # Select Plugins-->Topics-->Topic Monitor

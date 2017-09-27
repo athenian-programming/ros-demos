@@ -6,7 +6,7 @@
 * [Robot Steering rqt plugin](docs/robot_steering.md)
 * [Keyboard Teleop](docs/keyboard_teleop.md)
 * [XBox Teleop](xbox_teleop/)
-* [Joystick Teleop](joystick_teleop/)
+* [Joystick Teleop](docs/joystick_teleop.md)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
 * [RViz Viewer](docs/rviz.md)
