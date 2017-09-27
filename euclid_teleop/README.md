@@ -2,12 +2,6 @@
 
 ## Usage
 
-Launch the TurtleBot3 operation packages and enable the robot with:
-```bash
-# On TurtleBot3
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
-```
-
 Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
 
 Run *twist_remapper.py* with: 
@@ -32,3 +26,8 @@ Alternatively, specify the remapping in the *~/catkin_ws/src/turtlebot3/turtlebo
 
 The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 
+Launch the TurtleBot3 operation packages and enable the robot with:
+```bash
+# On TurtleBot3
+$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```

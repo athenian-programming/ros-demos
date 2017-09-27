@@ -15,8 +15,13 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 $ roslaunch turtlebot3_fake turtlebot3_fake.launch
 ```
 
-
 ## Real TurtleBot3 and RViz
+
+Launch RViz viewer with: 
+```bash
+# On Ubuntu PC
+$ roslaunch turtlebot3_bringup turtlebot3_model.launch
+```
 
 Launch the TurtleBot3 operation packages and enable the robot with:
 ```bash
@@ -24,8 +29,3 @@ Launch the TurtleBot3 operation packages and enable the robot with:
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
-Launch RViz viewer with: 
-```bash
-# On Ubuntu PC
-$ roslaunch turtlebot3_bringup turtlebot3_model.launch
-```

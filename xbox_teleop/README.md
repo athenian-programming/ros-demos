@@ -14,12 +14,6 @@ $ sudo apt-get install xboxdrv ros-kinetic-joy ros-kinetic-joystick-drivers ros-
 
 ## Usage
 
-Launch the TurtleBot3 operation packages and enable the robot with:
-```bash
-# On TurtleBot3
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
-```
-
 Launch the Xbox USB Gamepad Userspace Driver with:
 ```bash
 $ sudo xboxdrv --silent
@@ -30,7 +24,14 @@ $ sudo xboxdrv --silent
 Run *xbox_remapper.launch*, which launches both the xbox_teleop node and 
 the [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) packages, with: 
 ```bash
-On Ubuntu PC
+# On Ubuntu PC
 $ roslaunch xbox_teleop xbox_teleop.launch
 ```
+
+Launch the TurtleBot3 operation packages and enable the robot with:
+```bash
+# On TurtleBot3
+$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
+
 
