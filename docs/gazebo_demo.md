@@ -1,4 +1,4 @@
-# TurtleBot3 Keyboard Control with Gazebo 
+# Keyboard Control with Gazebo 
 
 A complete description is [here](http://turtlebot3.robotis.com/en/latest/simulation.html).
 

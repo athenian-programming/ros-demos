@@ -1,6 +1,22 @@
 # Topic Basics
 
-## Non-latched Topics
+
+## Command Line
+
+Subscribe to a topic with:
+```bash
+$ rostopic echo ints  
+```
+
+Publish to a topic with:
+```bash
+# Publish once
+$ rostopic pub ints std_msgs/Int32 999 -1
+# Publish at 10 hz
+$ rostopic pub ints std_msgs/Int32 999 -r 10
+```
+
+## Programmatic 
 
 Run *topic_publisher.py* with:
 ```bash

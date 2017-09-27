@@ -1,4 +1,4 @@
-# TurtleBot3 Keyboard Teleop
+# Keyboard Teleop
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 
