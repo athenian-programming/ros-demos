@@ -5,15 +5,15 @@
 
 Subscribe to a topic with:
 ```bash
-$ rostopic echo ints  
+$ rostopic echo intval  
 ```
 
 Publish to a topic with:
 ```bash
 # Publish once
-$ rostopic pub ints std_msgs/Int32 999 -1
+$ rostopic pub intval std_msgs/Int32 999 -1
 # Publish at 10 hz
-$ rostopic pub ints std_msgs/Int32 999 -r 10
+$ rostopic pub intval std_msgs/Int32 999 -r 10
 ```
 
 ## Programmatic 
@@ -22,6 +22,13 @@ Run *topic_publisher.py* with:
 ```bash
 $ rosrun topic_basics topic_publisher.py
 ```
+
+Run *topic_subscriber.py* with:
+```bash
+$ rosrun topic_basics topic_subscriber.py
+```
+
+## Examine Topics 
 
 Inspect the topic *counter* from the CLI with:
 ```bash
@@ -34,16 +41,12 @@ $ rostopic bw counter
 $ rostopic hz counter
 ```
 
-Inspect the topic *counter* from *rqt* with:
+Inspect the **counter** topic sfrom *rqt* with:
 ```bash
 $ rqt
 # Select Plugins-->Topics-->Topic Monitor
 ```
 
-Run *topic_subscriber.py* with:
-```bash
-$ rosrun topic_basics topic_subscriber.py
-```
 
 ## Latched Topics
 
