@@ -21,7 +21,7 @@ $ jstest --normal /dev/input/js1
 Launch a [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) node with: 
 ```bash
 # On Ubuntu PC
-$ roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1
+$ roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1 joy_config:=atk3 enable_turbo_button:=1
 ```
 
 Launch a robot with:
