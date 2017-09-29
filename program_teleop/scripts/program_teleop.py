@@ -56,4 +56,4 @@ if __name__ == '__main__':
         r.move(3, 5)
         r.wait(5)
         print("Going reverse")
-        r.move(3, -5)
+        r.move(-3, 5)
