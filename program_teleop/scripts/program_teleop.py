@@ -53,7 +53,7 @@ if __name__ == '__main__':
     for i in range(5):
         r.wait(2)
         print("Going forward")
-        r.move(3, 5)
-        r.wait(5)
+        r.move(3, 2)
+        r.wait(2)
         print("Going reverse")
-        r.move(-3, 5)
+        r.move(-3, 2)
