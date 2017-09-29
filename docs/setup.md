@@ -4,7 +4,7 @@
 
 Create **new_package_name**, which depends on **std_msgs** and **rospy**, with:
 ```bash
-$ cd ~/catkin_ws/ros_demos/src/ros_demos
+$ cd ~/catkin_ws/ros_demos/src/ros-demos
 $ catkin_create_pkg new_package_name std_msgs rospy
 ```
 
