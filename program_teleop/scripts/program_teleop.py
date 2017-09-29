@@ -39,19 +39,21 @@ class Robot(object):
             t2.angular.y = 0
             t2.angular.z = 0
 
+    def wait(self, secs):
+        time.sleep(secs)
+
 
 if __name__ == '__main__':
-    target_linear = 0
-    target_ang = 0
-    curr_linear = 0
-    curr_ang = 0
-
     rospy.init_node('program_teleop')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     r = Robot(pub)
 
-    r.move(3, 10)
-    time.sleep(5)
-    r.move(3, -10)
+    for i in range(5):
+        r.wait(2)
+        print("Going forward")
+        r.move(3, 5)
+        r.wait(5)
+        print("Going reverse")
+        r.move(3, -5)
