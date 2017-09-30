@@ -52,7 +52,7 @@ class Robot(object):
         t.linear.z = 0
         t.angular.x = 0
         t.angular.y = 0
-        t.angular.z = 0
+        t.angular.z = ang_speed
         rate = rospy.Rate(10)
         start = rospy.get_rostime().secs
 
