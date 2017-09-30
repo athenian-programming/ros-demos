@@ -86,4 +86,4 @@ if __name__ == '__main__':
         r.move(-3, 2)
         r.pause(2)
         print("Turning 90 degrees")
-        r.move(1, 90)
+        r.rotate(1, 90)
