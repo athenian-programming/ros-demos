@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 
 
 class Robot(object):
-    rate = 100
+    rate = 200
     stop = Twist()
     stop.linear.x = 0
     stop.linear.y = 0
@@ -64,7 +64,7 @@ class Robot(object):
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= radians * sp:
+                if elapsed >= radians / sp:
                     break
                 rate.sleep()
         finally:
@@ -83,10 +83,8 @@ if __name__ == '__main__':
 
     for i in range(8):
         print("Going forward")
-        r.move(3.0, 3.0, True)
+        r.move(2.0, 4.0, True)
         print("Going backward")
-        r.move(3.0, 3.0, 0)
+        r.move(.5, 4.0, 0)
         print("Turning 90 degrees")
-        r.rotate(1.0, 90, 1)
-        print("Turning 180 degrees")
-        r.rotate(1.0, 180, False)
+        r.rotate(.5, 90, 1)
