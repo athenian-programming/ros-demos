@@ -31,8 +31,8 @@ class Robot(object):
         rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
         print("Start time1: {0}".format(rospy.get_rostime()))
-        print("Start time1: {0}.{1}".format(rospy.get_rostime().secs, rospy.get_rostime().nsecs))
-        print("Start time2: {0}".format(start))
+        print("Start time2: {0}".format(rospy.get_rostime().to_sec()))
+        print("Start time3: {0}".format(start))
 
         try:
             while True:
