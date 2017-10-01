@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 
 
 class Robot(object):
-    rate = 10
+    rate = 100
     stop = Twist()
     stop.linear.x = 0
     stop.linear.y = 0
@@ -84,3 +84,5 @@ if __name__ == '__main__':
         r.move(-3.0, 3.0)
         print("Turning 90 degrees")
         r.rotate(1.0, 90)
+        print("Turning 180 degrees")
+        r.rotate(-1.0, 180)
