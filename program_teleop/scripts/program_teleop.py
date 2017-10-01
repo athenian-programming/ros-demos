@@ -7,6 +7,7 @@ from geometry_msgs.msg import Twist
 
 
 class Robot(object):
+    rate = 30
     stop = Twist()
     stop.linear.x = 0
     stop.linear.y = 0
@@ -28,7 +29,7 @@ class Robot(object):
         t.angular.x = 0
         t.angular.y = 0
         t.angular.z = 0
-        rate = rospy.Rate(20)
+        rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
         print("Start time1: {0}".format(rospy.get_rostime()))
         print("Start time2: {0}".format(rospy.get_rostime().to_sec()))
@@ -57,7 +58,7 @@ class Robot(object):
         t.angular.x = 0
         t.angular.y = 0
         t.angular.z = ang_speed
-        rate = rospy.Rate(20)
+        rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
         print("Start time: {0}".format(start))
 
@@ -82,13 +83,10 @@ if __name__ == '__main__':
 
     r = Robot(pub)
 
-    for i in range(5):
-        r.pause(1)
+    for i in range(10):
         print("Going forward")
         r.move(3.0, 3.0)
-        r.pause(1)
         print("Going backward")
         r.move(-3.0, 3.0)
-        r.pause(1)
         print("Turning 90 degrees")
         r.rotate(1.0, 90)
