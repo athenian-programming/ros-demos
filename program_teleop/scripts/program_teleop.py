@@ -29,7 +29,7 @@ class Robot(object):
         t.angular.y = 0
         t.angular.z = 0
         rate = rospy.Rate(20)
-        start = rospy.get_rostime().secs
+        start = rospy.get_rostime().to_sec()
         print("Start time1: {0}".format(rospy.get_rostime()))
         print("Start time2: {0}".format(rospy.get_rostime().to_sec()))
         print("Start time3: {0}".format(start))
@@ -37,7 +37,7 @@ class Robot(object):
         try:
             while True:
                 pub.publish(t)
-                elapsed = rospy.get_rostime().secs - start
+                elapsed = rospy.get_rostime().to_sec() - start
                 if elapsed >= distance / abs(lin_speed):
                     break
                 rate.sleep()
@@ -58,13 +58,13 @@ class Robot(object):
         t.angular.y = 0
         t.angular.z = ang_speed
         rate = rospy.Rate(20)
-        start = rospy.get_rostime().secs
+        start = rospy.get_rostime().to_sec()
         print("Start time: {0}".format(start))
 
         try:
             while True:
                 pub.publish(t)
-                elapsed = rospy.get_rostime().secs - start
+                elapsed = rospy.get_rostime().to_sec() - start
                 if elapsed >= radians * ang_speed:
                     break
                 rate.sleep()
