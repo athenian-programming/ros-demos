@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import rospy
 import time
+
+import rospy
 from geometry_msgs.msg import Twist
 
 
@@ -29,7 +30,9 @@ class Robot(object):
         t.angular.z = 0
         rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
-        print("Start time: {0}".format(start))
+        print("Start time1: {0}".format(rospy.get_rostime()))
+        print("Start time1: {0}.{1}".format(rospy.get_rostime().secs, rospy.get_rostime().nsecs))
+        print("Start time2: {0}".format(start))
 
         try:
             while True:
@@ -80,12 +83,12 @@ if __name__ == '__main__':
     r = Robot(pub)
 
     for i in range(5):
-        r.pause(2)
+        r.pause(1)
         print("Going forward")
-        r.move(3.0, 4.0)
-        r.pause(2)
+        r.move(3.0, 3.0)
+        r.pause(1)
         print("Going backward")
-        r.move(-3.0, 4.0)
-        r.pause(2)
+        r.move(-3.0, 3.0)
+        r.pause(1)
         print("Turning 90 degrees")
         r.rotate(1.0, 90)
