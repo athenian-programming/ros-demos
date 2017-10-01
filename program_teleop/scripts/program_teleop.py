@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-import time
-from math import abs
-
 import rospy
+import time
 from geometry_msgs.msg import Twist
 
 
@@ -31,6 +29,7 @@ class Robot(object):
         t.angular.z = 0
         rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
+        print("Start time: {0}".format(start))
 
         try:
             while True:
@@ -57,6 +56,7 @@ class Robot(object):
         t.angular.z = ang_speed
         rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
+        print("Start time: {0}".format(start))
 
         try:
             while True:
