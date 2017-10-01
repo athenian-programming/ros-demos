@@ -60,7 +60,7 @@ class Robot(object):
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= degrees * 0.0174533 * ang_speed:
+                if elapsed >= degrees * 0.0174533 * abs(ang_speed):
                     break
                 rate.sleep()
         finally:
@@ -83,6 +83,4 @@ if __name__ == '__main__':
         print("Going backward")
         r.move(-3.0, 3.0)
         print("Turning 90 degrees")
-        r.rotate(1.0, 90)
-        print("Turning 180 degrees")
-        r.rotate(-1.0, 180)
+        r.rotate(-1.0, 90)
