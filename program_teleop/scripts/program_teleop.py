@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 
 
 class Robot(object):
-    rate = 30
+    rate = 10
     stop = Twist()
     stop.linear.x = 0
     stop.linear.y = 0
@@ -31,9 +31,6 @@ class Robot(object):
         t.angular.z = 0
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
-        print("Start time1: {0}".format(rospy.get_rostime()))
-        print("Start time2: {0}".format(rospy.get_rostime().to_sec()))
-        print("Start time3: {0}".format(start))
 
         try:
             while True:
@@ -49,8 +46,6 @@ class Robot(object):
         # ang_speed units are radians/sec
         # 1 degree = 0.0174533
 
-        radians = degrees * 0.0174533
-        print("Turning {0}".format(radians))
         t = Twist()
         t.linear.x = 0
         t.linear.y = 0
@@ -60,20 +55,19 @@ class Robot(object):
         t.angular.z = ang_speed
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
-        print("Start time: {0}".format(start))
 
         try:
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= radians * ang_speed:
+                if elapsed >= degrees * 0.0174533 * ang_speed:
                     break
                 rate.sleep()
         finally:
             pub.publish(Robot.stop)
 
-    def pause(self, secs):
-        time.sleep(secs)
+    def pause(self, sleep_secs):
+        time.sleep(sleep_secs)
 
 
 if __name__ == '__main__':
@@ -83,7 +77,7 @@ if __name__ == '__main__':
 
     r = Robot(pub)
 
-    for i in range(10):
+    for i in range(8):
         print("Going forward")
         r.move(3.0, 3.0)
         print("Going backward")
