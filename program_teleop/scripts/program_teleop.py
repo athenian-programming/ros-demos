@@ -28,7 +28,7 @@ class Robot(object):
         t.angular.x = 0
         t.angular.y = 0
         t.angular.z = 0
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
 
         try:
@@ -53,7 +53,7 @@ class Robot(object):
         t.angular.x = 0
         t.angular.y = 0
         t.angular.z = ang_speed
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(20)
         start = rospy.get_rostime().secs
 
         try:
@@ -80,10 +80,10 @@ if __name__ == '__main__':
     for i in range(5):
         r.pause(2)
         print("Going forward")
-        r.move(3, 2)
+        r.move(3, 8)
         r.pause(2)
         print("Going backward")
-        r.move(-3, 2)
+        r.move(-3, 8)
         r.pause(2)
         print("Turning 90 degrees")
         r.rotate(1, 90)
