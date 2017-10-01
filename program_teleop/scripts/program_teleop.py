@@ -85,7 +85,7 @@ if __name__ == '__main__':
         print("Going forward")
         r.move(3.0, 3.0, True)
         print("Going backward")
-        r.move(-3.0, 3.0, 1)
+        r.move(-3.0, 3.0, 0)
         print("Turning 90 degrees")
         r.rotate(-1.0, 90, 1)
         print("Turning 180 degrees")
