@@ -80,10 +80,10 @@ if __name__ == '__main__':
     for i in range(5):
         r.pause(2)
         print("Going forward")
-        r.move(3, 8)
+        r.move(3.0, 8.0)
         r.pause(2)
         print("Going backward")
-        r.move(-3, 8)
+        r.move(-3.0, 8.0)
         r.pause(2)
         print("Turning 90 degrees")
-        r.rotate(1, 90)
+        r.rotate(1.0, 90)
