@@ -19,11 +19,13 @@ class Robot(object):
     def __init__(self, pub):
         self.__pub = pub
 
-    def move(self, lin_speed, distance):
+    def move(self, lin_speed, distance, isForward):
         # distance = speed * time
 
+        sp = abs(lin_speed)
+        dist = abs(distance)
         t = Twist()
-        t.linear.x = lin_speed
+        t.linear.x = sp if isForward else -1 * sp
         t.linear.y = 0
         t.linear.z = 0
         t.angular.x = 0
@@ -36,23 +38,25 @@ class Robot(object):
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= distance / abs(lin_speed):
+                if elapsed >= dist / sp:
                     break
                 rate.sleep()
         finally:
             pub.publish(Robot.stop)
 
-    def rotate(self, ang_speed, degrees):
+    def rotate(self, ang_speed, degrees, clockwise):
         # ang_speed units are radians/sec
         # 1 degree = 0.0174533
 
+        sp = abs(ang_speed)
+        radians = abs(degrees) * 0.0174533
         t = Twist()
         t.linear.x = 0
         t.linear.y = 0
         t.linear.z = 0
         t.angular.x = 0
         t.angular.y = 0
-        t.angular.z = ang_speed
+        t.angular.z = -1 * sp if clockwise else sp
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
 
@@ -60,7 +64,7 @@ class Robot(object):
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= degrees * 0.0174533 * abs(ang_speed):
+                if elapsed >= radians * sp:
                     break
                 rate.sleep()
         finally:
@@ -79,8 +83,10 @@ if __name__ == '__main__':
 
     for i in range(8):
         print("Going forward")
-        r.move(3.0, 3.0)
+        r.move(3.0, 3.0, True)
         print("Going backward")
-        r.move(-3.0, 3.0)
+        r.move(-3.0, 3.0, 1)
         print("Turning 90 degrees")
-        r.rotate(-1.0, 90)
+        r.rotate(-1.0, 90, 1)
+        print("Turning 180 degrees")
+        r.rotate(-1.0, 180, False)
