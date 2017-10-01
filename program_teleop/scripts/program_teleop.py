@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 
 
 class Robot(object):
-    rate = 10
+    rate = 50
     stop = Twist()
     stop.linear.x = 0
     stop.linear.y = 0
