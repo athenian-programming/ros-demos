@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+from math import abs
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -35,7 +36,7 @@ class Robot(object):
             while True:
                 pub.publish(t)
                 elapsed = rospy.get_rostime().secs - start
-                if elapsed >= distance / lin_speed:
+                if elapsed >= distance / abs(lin_speed):
                     break
                 rate.sleep()
         finally:
@@ -46,6 +47,7 @@ class Robot(object):
         # 1 degree = 0.0174533
 
         radians = degrees * 0.0174533
+        print("Turning {0}".format(radians))
         t = Twist()
         t.linear.x = 0
         t.linear.y = 0
@@ -80,10 +82,10 @@ if __name__ == '__main__':
     for i in range(5):
         r.pause(2)
         print("Going forward")
-        r.move(3.0, 8.0)
+        r.move(3.0, 4.0)
         r.pause(2)
         print("Going backward")
-        r.move(-3.0, 8.0)
+        r.move(-3.0, 4.0)
         r.pause(2)
         print("Turning 90 degrees")
         r.rotate(1.0, 90)
