@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
+import math
 import time
 
 import rospy
+from geometry_msgs.msg import Pose
+# from /opt/ros/kinetic/lib/python2.7/dist-packages/geometry_msgs/msg
 from geometry_msgs.msg import Twist
+# from /opt/ros/kinetic/lib/python2.7/dist-packages/std_srvs/srv
 from std_srvs.srv import Empty
 
 
@@ -17,8 +21,14 @@ class Robot(object):
     stop.angular.y = 0
     stop.angular.z = 0
 
-    def __init__(self, pub):
-        self.__pub = pub
+    def __init__(self, turtle_num):
+        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self.turtle_pose)
+        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+        self.__current_pose = None
+
+    def turtle_pose(self, msg):
+        self.__current_pose = msg
+        print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y, self.__current_pose.theta))
 
     def move(self, lin_speed, distance, isForward):
         # distance = speed * time
@@ -40,17 +50,16 @@ class Robot(object):
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                pub.publish(t)
+                self.__pub.publish(t)
                 rate.sleep()
         finally:
-            pub.publish(Robot.stop)
+            self.__pub.publish(Robot.stop)
 
     def rotate(self, ang_speed, degrees, clockwise):
         # ang_speed units are radians/sec
-        # 1 degree = 0.0174533
 
         sp = abs(ang_speed)
-        radians = abs(degrees) * 0.0174533
+        rads = math.radians(degrees)
         t = Twist()
         t.linear.x = 0
         t.linear.y = 0
@@ -60,15 +69,18 @@ class Robot(object):
         t.angular.z = -1 * sp if clockwise else sp
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
-        total_time = radians / sp
+        total_time = rads / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                pub.publish(t)
+                self.__pub.publish(t)
                 rate.sleep()
         finally:
-            pub.publish(Robot.stop)
+            self.__pub.publish(Robot.stop)
+
+    def orient(self):
+        pass
 
     def pause(self, sleep_secs):
         time.sleep(sleep_secs)
@@ -82,20 +94,26 @@ class TurtleSim(object):
         rospy.wait_for_service('reset')
         try:
             reset = rospy.ServiceProxy('reset', Empty)
-            resp1 = reset()
+            reset()
         except rospy.ServiceException as e:
-            print("Service call failed: %s" % e)
+            print("/reset call failed: %s" % e)
+
+    def clear(self):
+        rospy.wait_for_service('clear')
+        try:
+            clear = rospy.ServiceProxy('clear', Empty)
+            clear()
+        except rospy.ServiceException as e:
+            print("/clear call failed: %s" % e)
 
 
 if __name__ == '__main__':
     rospy.init_node('program_teleop')
 
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-
     ts = TurtleSim()
     ts.reset()
 
-    r = Robot(pub)
+    r = Robot(1)
 
     for i in range(4):
         print("Going forward")
