@@ -4,6 +4,7 @@ import time
 
 import rospy
 from geometry_msgs.msg import Twist
+from std_srvs.srv import Empty
 
 
 class Robot(object):
@@ -80,10 +81,10 @@ class TurtleSim(object):
     def reset(self):
         rospy.wait_for_service('reset')
         try:
-            reset = rospy.ServiceProxy('reset')
+            reset = rospy.ServiceProxy('reset', Empty)
             resp1 = reset()
-        except rospy.ServiceException, e:
-            print "Service call failed: %s" % e
+        except rospy.ServiceException as e:
+            print("Service call failed: %s" % e)
 
 
 if __name__ == '__main__':
@@ -96,10 +97,10 @@ if __name__ == '__main__':
 
     r = Robot(pub)
 
-    for i in range(8):
+    for i in range(4):
         print("Going forward")
         r.move(2.0, 4.0, True)
         print("Going backward")
-        r.move(.5, 4.0, 0)
+        r.move(1.5, 4.0, 0)
         print("Turning 90 degrees")
-        r.rotate(.5, 90, 1)
+        r.rotate(.75, 90, 1)
