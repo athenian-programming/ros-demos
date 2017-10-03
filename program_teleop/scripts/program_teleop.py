@@ -33,13 +33,13 @@ class Robot(object):
         t.angular.z = 0
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
+        total_time = dist / sp
 
         try:
             while True:
-                pub.publish(t)
-                elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= dist / sp:
+                if rospy.get_rostime().to_sec() - start >= total_time:
                     break
+                pub.publish(t)
                 rate.sleep()
         finally:
             pub.publish(Robot.stop)
@@ -59,13 +59,12 @@ class Robot(object):
         t.angular.z = -1 * sp if clockwise else sp
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
-
+        total_time = radians / sp
         try:
             while True:
-                pub.publish(t)
-                elapsed = rospy.get_rostime().to_sec() - start
-                if elapsed >= radians / sp:
+                if rospy.get_rostime().to_sec() - start >= total_time:
                     break
+                pub.publish(t)
                 rate.sleep()
         finally:
             pub.publish(Robot.stop)
@@ -74,10 +73,26 @@ class Robot(object):
         time.sleep(sleep_secs)
 
 
+class TurtleSim(object):
+    def __init__(self):
+        pass
+
+    def reset(self):
+        rospy.wait_for_service('reset')
+        try:
+            reset = rospy.ServiceProxy('reset')
+            resp1 = reset()
+        except rospy.ServiceException, e:
+            print "Service call failed: %s" % e
+
+
 if __name__ == '__main__':
     rospy.init_node('program_teleop')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+
+    ts = TurtleSim()
+    ts.reset()
 
     r = Robot(pub)
 
