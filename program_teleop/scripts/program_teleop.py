@@ -4,11 +4,11 @@ import math
 import time
 
 import rospy
-from geometry_msgs.msg import Pose
 # from /opt/ros/kinetic/lib/python2.7/dist-packages/geometry_msgs/msg
 from geometry_msgs.msg import Twist
 # from /opt/ros/kinetic/lib/python2.7/dist-packages/std_srvs/srv
 from std_srvs.srv import Empty
+from turtlesim.msg import Pose
 
 
 class Robot(object):
@@ -28,7 +28,8 @@ class Robot(object):
 
     def turtle_pose(self, msg):
         self.__current_pose = msg
-        print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y, self.__current_pose.theta))
+        print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y,
+                                             math.degrees(self.__current_pose.theta)))
 
     def move(self, lin_speed, distance, isForward):
         # distance = speed * time
@@ -121,4 +122,4 @@ if __name__ == '__main__':
         print("Going backward")
         r.move(1.5, 4.0, 0)
         print("Turning 90 degrees")
-        r.rotate(.75, 90, 1)
+        r.rotate(.75, 90, 0)
