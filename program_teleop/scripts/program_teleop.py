@@ -11,6 +11,22 @@ from std_srvs.srv import Empty
 from turtlesim.msg import Pose
 
 
+# initial_heading is curr
+# heading is target_degrees
+def degrees_diff(curr_val, target_val):
+    if curr_val <= 180:
+        diff = target_val - (curr_val + 360 if target_val > 180 else curr_val)
+    else:
+        diff = (target_val + 360 if target_val <= 180 else target_val) - curr_val
+
+    if diff <= -180:
+        return diff + 360
+    elif diff > 180:
+        return diff - 360
+    else:
+        return diff
+
+
 class Robot(object):
     rate = 200
     stop = Twist()
@@ -80,11 +96,16 @@ class Robot(object):
         finally:
             self.__pub.publish(Robot.stop)
 
-    def orient(self):
-        pass
+    def orient(self, target_degrees):
 
-    def pause(self, sleep_secs):
-        time.sleep(sleep_secs)
+        if self.__current_pose is None:
+            return
+        curr_degrees = self.__current_pose.theta
+        diff = degrees_diff(curr_degrees, target_degrees)
+
+
+def pause(self, sleep_secs):
+    time.sleep(sleep_secs)
 
 
 class TurtleSim(object):
@@ -115,6 +136,10 @@ if __name__ == '__main__':
     ts.reset()
 
     r = Robot(1)
+
+    for curr in range(0, 360, 10):
+        for target in range(0, 360, 10):
+            print("Current: {0} Target: {1} Diff: {2}".format(curr, target, degrees_diff(curr, target)))
 
     for i in range(4):
         print("Going forward")
