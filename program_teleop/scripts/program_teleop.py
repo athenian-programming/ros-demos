@@ -44,8 +44,8 @@ class Robot(object):
 
     def turtle_pose(self, msg):
         self.__current_pose = msg
-        print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y,
-                                             math.degrees(self.__current_pose.theta)))
+        # print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y,
+        #                                     math.degrees(self.__current_pose.theta)))
 
     def move(self, lin_speed, distance, isForward):
         # distance = speed * time
@@ -96,12 +96,12 @@ class Robot(object):
         finally:
             self.__pub.publish(Robot.stop)
 
-    def orient(self, target_degrees):
-
+    def orient(self, ang_speed, target_degrees):
         if self.__current_pose is None:
             return
         curr_degrees = self.__current_pose.theta
         diff = degrees_diff(curr_degrees, target_degrees)
+        self.rotate(ang_speed, abs(diff), True if diff >= 0 else False)
 
 
 def pause(self, sleep_secs):
@@ -137,14 +137,22 @@ if __name__ == '__main__':
 
     r = Robot(1)
 
-    for curr in range(0, 360, 10):
-        for target in range(0, 360, 10):
-            print("Current: {0} Target: {1} Diff: {2}".format(curr, target, degrees_diff(curr, target)))
+    # for curr in range(0, 360, 10):
+    #    for target in range(0, 360, 10):
+    #        print("Current: {0} Target: {1} Diff: {2}".format(curr, target, degrees_diff(curr, target)))
 
-    for i in range(4):
+    for i in range(1):
         print("Going forward")
         r.move(2.0, 4.0, True)
         print("Going backward")
         r.move(1.5, 4.0, 0)
         print("Turning 90 degrees")
         r.rotate(.75, 90, 0)
+
+    for d in range(0, 360, 10):
+        print("Turning to {0} degrees".format(d))
+        r.orient(1, d)
+
+    for d in range(360, 0, -10):
+        print("Turning to {0} degrees".format(d))
+        r.orient(1, d)
