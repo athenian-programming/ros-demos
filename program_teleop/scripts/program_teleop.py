@@ -101,6 +101,7 @@ class Robot(object):
             return
         curr_degrees = self.__current_pose.theta
         diff = degrees_diff(curr_degrees, target_degrees)
+        print("Current angle: {0}, Target angle: {1}, Diff angle: {2}".format(curr_degrees, target_degrees, diff))
         self.rotate(ang_speed, abs(diff), True if diff >= 0 else False)
 
 
@@ -141,18 +142,19 @@ if __name__ == '__main__':
     #    for target in range(0, 360, 10):
     #        print("Current: {0} Target: {1} Diff: {2}".format(curr, target, degrees_diff(curr, target)))
 
-    for i in range(1):
-        print("Going forward")
-        r.move(2.0, 4.0, True)
-        print("Going backward")
-        r.move(1.5, 4.0, 0)
-        print("Turning 90 degrees")
-        r.rotate(.75, 90, 0)
+    if False:
+        for i in range(1):
+            print("Going forward")
+            r.move(2.0, 4.0, True)
+            print("Going backward")
+            r.move(1.5, 4.0, 0)
+            print("Turning 90 degrees")
+            r.rotate(.75, 90, 0)
 
     for d in range(0, 360, 10):
-        print("Turning to {0} degrees".format(d))
+        print("Orienting to {0} degrees".format(d))
         r.orient(1, d)
 
-    for d in range(360, 0, -10):
-        print("Turning to {0} degrees".format(d))
-        r.orient(1, d)
+    # for d in range(360, 0, -10):
+    #    print("Orienting to {0} degrees".format(d))
+    #    r.orient(1, d)
