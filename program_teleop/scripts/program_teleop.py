@@ -36,12 +36,24 @@ class Robot(object):
         # Pause to get latest update on current pose
         time.sleep(.1)
         if self.__current_pose is None:
-            print("Warning: current pose not updated")
+            print("Warning: current pose not initialized")
             return None
         return math.degrees(self.__current_pose.theta)
 
+    @property
+    def curr_xy(self):
+        # Pause to get latest update on current pose
+        time.sleep(.1)
+        if self.__current_pose is None:
+            print("Warning: current pose not initialized")
+            return None
+        return {'x': self.__current_pose.x, 'y': self.__current_pose.y}
+
     def _update_pose(self, msg):
         self.__current_pose = msg
+
+    def distance_diff(self, curr_x, curr_y, goal_x, goal_y):
+        return math.sqrt(math.pow(goal_x - curr_x, 2) + math.pow(goal_y - curr_y, 2))
 
     def _degrees_diff(self, curr_val, target_val):
         if curr_val <= 180:
@@ -75,9 +87,9 @@ class Robot(object):
             self.__pub.publish(self._stop)
 
     def turn_abs(self, ang_speed, abs_degrees):
-        diff = self._degrees_diff(self.curr_theta_degrees, abs_degrees)
-        print(
-        "Absolute- current: {0}, Absolute target: {1}, Diff: {2}".format(self.curr_theta_degrees, abs_degrees, diff))
+        curr = self.curr_theta_degrees
+        diff = self._degrees_diff(curr, abs_degrees)
+        print("Absolute- current: {0}, Absolute target: {1}, Diff: {2}".format(curr, abs_degrees, diff))
         self._rotate(ang_speed, diff)
 
     def turn_rel(self, ang_speed, rel_degrees):
@@ -98,6 +110,22 @@ class Robot(object):
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
+                self.__pub.publish(t)
+                rate.sleep()
+        finally:
+            self.__pub.publish(self._stop)
+
+    def goto(self, goal_pose, tolerance):
+        rate = rospy.Rate(self._rate)
+        try:
+            while True:
+                xy = self.curr_xy
+                linear_diff = self.distance_diff(xy['x'], xy['y'], goal_pose.x, goal_pose.y)
+                ang_diff = math.atan2(goal_pose.y - xy['y'], goal_pose.x - xy['x'])
+                print("Distance: {0} Angle: {1}".format(linear_diff, ang_diff))
+                if linear_diff < tolerance:
+                    break
+                t = Robot._new_twist(1.5 * linear_diff, 4 * ang_diff)
                 self.__pub.publish(t)
                 rate.sleep()
         finally:
@@ -136,6 +164,18 @@ if __name__ == '__main__':
     # Pause to give pose subscriber a chance to get data
     time.sleep(.5)
 
+    p = Pose()
+    p.x = 1
+    p.y = 1
+    p.theta = 0
+    p.linear_velocity = 1
+    p.angular_velocity = 1
+
+    curr = r.curr_xy
+    print("Current x,y: {0},{1}".format(curr['x'], curr['y']))
+    r.goto(p, .25)
+
+
     if False:
         for a in range(0, 450, 90):
             r.turn_abs(1, a)
@@ -145,11 +185,12 @@ if __name__ == '__main__':
             r.turn_abs(1, -a)
             time.sleep(1)
 
-    r.turn_abs(1, 90)
+    if False:
+        r.turn_abs(1, 90)
 
-    for a in [0, 60, 120, 180, 240, 300, 360]:
-        r.turn_rel(1, a)
-        r.turn_rel(1, -a)
+        for a in [0, 60, 120, 180, 240, 300, 360]:
+            r.turn_rel(1, a)
+            r.turn_rel(1, -a)
 
     if False:
         for i in range(1):
