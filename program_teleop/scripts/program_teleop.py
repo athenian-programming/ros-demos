@@ -11,22 +11,6 @@ from std_srvs.srv import Empty
 from turtlesim.msg import Pose
 
 
-# initial_heading is curr
-# heading is target_degrees
-def degrees_diff(curr_val, target_val):
-    if curr_val <= 180:
-        diff = target_val - (curr_val + 360 if target_val > 180 else curr_val)
-    else:
-        diff = (target_val + 360 if target_val <= 180 else target_val) - curr_val
-
-    if diff <= -180:
-        return diff + 360
-    elif diff > 180:
-        return diff - 360
-    else:
-        return diff
-
-
 class Robot(object):
     rate = 200
     stop = Twist()
@@ -47,6 +31,14 @@ class Robot(object):
         # print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y,
         #                                     math.degrees(self.__current_pose.theta)))
 
+    @property
+    def curr_theta_degrees(self):
+        if self.__current_pose is None:
+            return None
+        # Pause to get latest update on current pose
+        time.sleep(.1)
+        return math.degrees(self.__current_pose.theta)
+
     def move(self, lin_speed, distance, isForward):
         # distance = speed * time
 
@@ -59,6 +51,7 @@ class Robot(object):
         t.angular.x = 0
         t.angular.y = 0
         t.angular.z = 0
+
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
         total_time = dist / sp
@@ -72,21 +65,34 @@ class Robot(object):
         finally:
             self.__pub.publish(Robot.stop)
 
-    def rotate(self, ang_speed, degrees, clockwise):
+    def _degrees_diff(self, curr_val, target_val):
+        if curr_val <= 180:
+            diff = target_val - (curr_val + 360 if target_val > 180 else curr_val)
+        else:
+            diff = (target_val + 360 if target_val <= 180 else target_val) - curr_val
+
+        if diff < -180:
+            return diff + 360
+        elif diff > 180:
+            return diff - 360
+        else:
+            return diff
+
+    def _rotate(self, ang_speed, degrees):
         # ang_speed units are radians/sec
 
         sp = abs(ang_speed)
-        rads = math.radians(degrees)
         t = Twist()
         t.linear.x = 0
         t.linear.y = 0
         t.linear.z = 0
         t.angular.x = 0
         t.angular.y = 0
-        t.angular.z = -1 * sp if clockwise else sp
+        t.angular.z = -1 * sp if degrees < 0 else sp
+
         rate = rospy.Rate(Robot.rate)
         start = rospy.get_rostime().to_sec()
-        total_time = rads / sp
+        total_time = math.radians(abs(degrees)) / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
@@ -96,13 +102,27 @@ class Robot(object):
         finally:
             self.__pub.publish(Robot.stop)
 
-    def orient(self, ang_speed, target_degrees):
-        if self.__current_pose is None:
+    def turn_abs(self, ang_speed, abs_degrees):
+        if self.curr_theta_degrees is None:
             return
-        curr_degrees = self.__current_pose.theta
-        diff = degrees_diff(curr_degrees, target_degrees)
-        print("Current angle: {0}, Target angle: {1}, Diff angle: {2}".format(curr_degrees, target_degrees, diff))
-        self.rotate(ang_speed, abs(diff), True if diff >= 0 else False)
+        print("Absolute to {0} degrees".format(abs_degrees))
+        diff = self._degrees_diff(self.curr_theta_degrees, abs_degrees)
+        print(
+            "Current angle: {0}, Absolute target angle: {1}, Diff angle: {2}".format(self.curr_theta_degrees,
+                                                                                     abs_degrees,
+                                                                                     diff))
+        self._rotate(ang_speed, diff)
+
+    def turn_rel(self, ang_speed, rel_degrees):
+        if self.curr_theta_degrees is None:
+            return
+        print("Relative to {0} degrees".format(rel_degrees))
+        diff = rel_degrees  # self._degrees_diff(self.curr_theta_degrees, self.curr_theta_degrees + rel_degrees)
+        print(
+            "Current angle: {0}, Relative target angle: {1}, Diff angle: {2}".format(self.curr_theta_degrees,
+                                                                                     rel_degrees,
+                                                                                     diff))
+        self._rotate(ang_speed, diff)
 
 
 def pause(self, sleep_secs):
@@ -138,9 +158,24 @@ if __name__ == '__main__':
 
     r = Robot(1)
 
-    # for curr in range(0, 360, 10):
-    #    for target in range(0, 360, 10):
-    #        print("Current: {0} Target: {1} Diff: {2}".format(curr, target, degrees_diff(curr, target)))
+    # Pause to give pose subscriber a chance to get data
+    time.sleep(.5)
+
+    if False:
+        for a in range(0, 450, 90):
+            r.turn_abs(1, a)
+            time.sleep(1)
+
+        for a in range(0, 450, 90):
+            r.turn_abs(1, -a)
+            time.sleep(1)
+
+    r.turn_abs(1, 90)
+
+    for a in [0, 60, 120, 180, 240, 300, 360]:
+        r.turn_rel(1, a)
+        r.turn_rel(1, -a)
+
 
     if False:
         for i in range(1):
@@ -149,12 +184,10 @@ if __name__ == '__main__':
             print("Going backward")
             r.move(1.5, 4.0, 0)
             print("Turning 90 degrees")
-            r.rotate(.75, 90, 0)
+            r.turn_rel(.75, 90)
 
-    for d in range(0, 360, 10):
-        print("Orienting to {0} degrees".format(d))
-        r.orient(1, d)
+        for d in range(0, 90, 10):
+            r.turn_abs(1, d)
 
-    # for d in range(360, 0, -10):
-    #    print("Orienting to {0} degrees".format(d))
-    #    r.orient(1, d)
+        for d in range(360, 0, -10):
+            r.turn_abs(1, d)
