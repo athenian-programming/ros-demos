@@ -12,58 +12,36 @@ from turtlesim.msg import Pose
 
 
 class Robot(object):
-    rate = 200
-    stop = Twist()
-    stop.linear.x = 0
-    stop.linear.y = 0
-    stop.linear.z = 0
-    stop.angular.x = 0
-    stop.angular.y = 0
-    stop.angular.z = 0
-
-    def __init__(self, turtle_num):
-        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self.turtle_pose)
-        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
-        self.__current_pose = None
-
-    def turtle_pose(self, msg):
-        self.__current_pose = msg
-        # print("X={0} Y={1} theta={2}".format(self.__current_pose.x, self.__current_pose.y,
-        #                                     math.degrees(self.__current_pose.theta)))
-
-    @property
-    def curr_theta_degrees(self):
-        if self.__current_pose is None:
-            return None
-        # Pause to get latest update on current pose
-        time.sleep(.1)
-        return math.degrees(self.__current_pose.theta)
-
-    def move(self, lin_speed, distance, isForward):
-        # distance = speed * time
-
-        sp = abs(lin_speed)
-        dist = abs(distance)
+    @staticmethod
+    def _new_twist(linear_x, angular_z):
         t = Twist()
-        t.linear.x = sp if isForward else -1 * sp
+        t.linear.x = linear_x
         t.linear.y = 0
         t.linear.z = 0
         t.angular.x = 0
         t.angular.y = 0
-        t.angular.z = 0
+        t.angular.z = angular_z
+        return t
 
-        rate = rospy.Rate(Robot.rate)
-        start = rospy.get_rostime().to_sec()
-        total_time = dist / sp
 
-        try:
-            while True:
-                if rospy.get_rostime().to_sec() - start >= total_time:
-                    break
-                self.__pub.publish(t)
-                rate.sleep()
-        finally:
-            self.__pub.publish(Robot.stop)
+    def __init__(self, turtle_num):
+        self._rate = 200
+        self._stop = Robot._new_twist(0, 0)
+        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
+        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+        self.__current_pose = None
+
+    @property
+    def curr_theta_degrees(self):
+        # Pause to get latest update on current pose
+        time.sleep(.1)
+        if self.__current_pose is None:
+            print("Warning: current pose not updated")
+            return None
+        return math.degrees(self.__current_pose.theta)
+
+    def _update_pose(self, msg):
+        self.__current_pose = msg
 
     def _degrees_diff(self, curr_val, target_val):
         if curr_val <= 180:
@@ -82,15 +60,9 @@ class Robot(object):
         # ang_speed units are radians/sec
 
         sp = abs(ang_speed)
-        t = Twist()
-        t.linear.x = 0
-        t.linear.y = 0
-        t.linear.z = 0
-        t.angular.x = 0
-        t.angular.y = 0
-        t.angular.z = -1 * sp if degrees < 0 else sp
+        t = Robot._new_twist(0, -1 * sp if degrees < 0 else sp)
 
-        rate = rospy.Rate(Robot.rate)
+        rate = rospy.Rate(self._rate)
         start = rospy.get_rostime().to_sec()
         total_time = math.radians(abs(degrees)) / sp
         try:
@@ -100,33 +72,36 @@ class Robot(object):
                 self.__pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(Robot.stop)
+            self.__pub.publish(self._stop)
 
     def turn_abs(self, ang_speed, abs_degrees):
-        if self.curr_theta_degrees is None:
-            return
-        print("Absolute to {0} degrees".format(abs_degrees))
         diff = self._degrees_diff(self.curr_theta_degrees, abs_degrees)
         print(
-            "Current angle: {0}, Absolute target angle: {1}, Diff angle: {2}".format(self.curr_theta_degrees,
-                                                                                     abs_degrees,
-                                                                                     diff))
+        "Absolute- current: {0}, Absolute target: {1}, Diff: {2}".format(self.curr_theta_degrees, abs_degrees, diff))
         self._rotate(ang_speed, diff)
 
     def turn_rel(self, ang_speed, rel_degrees):
-        if self.curr_theta_degrees is None:
-            return
-        print("Relative to {0} degrees".format(rel_degrees))
-        diff = rel_degrees  # self._degrees_diff(self.curr_theta_degrees, self.curr_theta_degrees + rel_degrees)
-        print(
-            "Current angle: {0}, Relative target angle: {1}, Diff angle: {2}".format(self.curr_theta_degrees,
-                                                                                     rel_degrees,
-                                                                                     diff))
-        self._rotate(ang_speed, diff)
+        print("Relative- current: {0}, Relative target: {1}".format(self.curr_theta_degrees, rel_degrees))
+        self._rotate(ang_speed, rel_degrees)
 
+    def move(self, lin_speed, distance, isForward):
+        # distance = speed * time
 
-def pause(self, sleep_secs):
-    time.sleep(sleep_secs)
+        sp = abs(lin_speed)
+        dist = abs(distance)
+        t = Robot._new_twist(sp if isForward else -1 * sp, 0)
+
+        rate = rospy.Rate(self._rate)
+        start = rospy.get_rostime().to_sec()
+        total_time = dist / sp
+        try:
+            while True:
+                if rospy.get_rostime().to_sec() - start >= total_time:
+                    break
+                self.__pub.publish(t)
+                rate.sleep()
+        finally:
+            self.__pub.publish(self._stop)
 
 
 class TurtleSim(object):
@@ -175,7 +150,6 @@ if __name__ == '__main__':
     for a in [0, 60, 120, 180, 240, 300, 360]:
         r.turn_rel(1, a)
         r.turn_rel(1, -a)
-
 
     if False:
         for i in range(1):
