@@ -25,11 +25,11 @@ class Robot(object):
 
 
     def __init__(self, turtle_num):
-        self._rate = 200
-        self._stop = Robot._new_twist(0, 0)
-        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
-        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+        self.__rate = 200
+        self.__stop = Robot._new_twist(0, 0)
         self.__current_pose = None
+        rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self.__update_pose)
+        self.__vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     @property
     def curr_theta_degrees(self):
@@ -49,7 +49,7 @@ class Robot(object):
             return None
         return {'x': self.__current_pose.x, 'y': self.__current_pose.y}
 
-    def _update_pose(self, msg):
+    def __update_pose(self, msg):
         self.__current_pose = msg
 
     def distance_diff(self, curr_x, curr_y, goal_x, goal_y):
@@ -74,17 +74,17 @@ class Robot(object):
         sp = abs(ang_speed)
         t = Robot._new_twist(0, -1 * sp if degrees < 0 else sp)
 
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
         total_time = math.radians(abs(degrees)) / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                self.__pub.publish(t)
+                self.__vel_pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__vel_pub.publish(self.__stop)
 
     def turn_abs(self, ang_speed, abs_degrees):
         curr = self.curr_theta_degrees
@@ -103,20 +103,20 @@ class Robot(object):
         dist = abs(distance)
         t = Robot._new_twist(sp if isForward else -1 * sp, 0)
 
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
         total_time = dist / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                self.__pub.publish(t)
+                self.__vel_pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__vel_pub.publish(self.__stop)
 
     def goto(self, goal_pose, tolerance):
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         try:
             while True:
                 xy = self.curr_xy
@@ -126,10 +126,10 @@ class Robot(object):
                 if linear_diff < tolerance:
                     break
                 t = Robot._new_twist(1.5 * linear_diff, 4 * ang_diff)
-                self.__pub.publish(t)
+                self.__vel_pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__vel_pub.publish(self.__stop)
 
 
 class TurtleSim(object):
