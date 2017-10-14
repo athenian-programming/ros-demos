@@ -23,13 +23,12 @@ class Robot(object):
         t.angular.z = angular_z
         return t
 
-
     def __init__(self, turtle_num):
-        self._rate = 10
-        self._stop = Robot._new_twist(0, 0)
-        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
-        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+        self.__rate = 10
+        self.__stop = Robot._new_twist(0, 0)
         self.__current_pose = None
+        rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
+        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     @property
     def curr_theta_degrees(self):
@@ -55,7 +54,7 @@ class Robot(object):
     def distance_diff(self, curr_x, curr_y, goal_x, goal_y):
         return math.sqrt(math.pow(goal_x - curr_x, 2) + math.pow(goal_y - curr_y, 2))
 
-    def _degrees_diff(self, curr_val, target_val):
+    def __degrees_diff(self, curr_val, target_val):
         if curr_val <= 180:
             diff = target_val - (curr_val + 360 if target_val > 180 else curr_val)
         else:
@@ -68,13 +67,13 @@ class Robot(object):
         else:
             return diff
 
-    def _rotate(self, ang_speed, degrees):
+    def __rotate(self, ang_speed, degrees):
         # ang_speed units are radians/sec
 
         sp = abs(ang_speed)
         t = Robot._new_twist(0, -1 * sp if degrees < 0 else sp)
 
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
         total_time = math.radians(abs(degrees)) / sp
         try:
@@ -84,17 +83,17 @@ class Robot(object):
                 self.__pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__pub.publish(self.__stop)
 
     def turn_abs(self, ang_speed, abs_degrees):
         curr = self.curr_theta_degrees
-        diff = self._degrees_diff(curr, abs_degrees)
+        diff = self.__degrees_diff(curr, abs_degrees)
         print("Absolute- current: {0}, Absolute target: {1}, Diff: {2}".format(curr, abs_degrees, diff))
-        self._rotate(ang_speed, diff)
+        self.__rotate(ang_speed, diff)
 
     def turn_rel(self, ang_speed, rel_degrees):
         print("Relative- current: {0}, Relative target: {1}".format(self.curr_theta_degrees, rel_degrees))
-        self._rotate(ang_speed, rel_degrees)
+        self.__rotate(ang_speed, rel_degrees)
 
     def move(self, lin_speed, distance, isForward):
         # distance = speed * time
@@ -103,7 +102,7 @@ class Robot(object):
         dist = abs(distance)
         t = Robot._new_twist(sp if isForward else -1 * sp, 0)
 
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
         total_time = dist / sp
         try:
@@ -113,23 +112,23 @@ class Robot(object):
                 self.__pub.publish(t)
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__pub.publish(self.__stop)
 
     def goto(self, goal_x, goal_y, tolerance):
-        rate = rospy.Rate(self._rate)
+        rate = rospy.Rate(self.__rate)
         try:
             while True:
                 curr = self.__current_pose
                 linear_diff = self.distance_diff(curr.x, curr.y, goal_x, goal_y)
                 ang_diff = math.atan2(goal_y - curr.y, goal_x - curr.x)
                 print(
-                "Distance: {0} Angle: {1} Curr: {2},{3}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
+                    "Distance: {0} Angle: {1} Curr: {2},{3}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
                 if linear_diff < tolerance:
                     break
                 self.__pub.publish(Robot._new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))
                 rate.sleep()
         finally:
-            self.__pub.publish(self._stop)
+            self.__pub.publish(self.__stop)
 
 
 class TurtleSim(object):
@@ -170,7 +169,6 @@ if __name__ == '__main__':
     r.goto(2, 9, .25)
     r.goto(9, 9, .25)
     r.goto(9, 2, .25)
-
 
     if False:
         for a in range(0, 450, 90):
