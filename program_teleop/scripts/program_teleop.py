@@ -25,11 +25,11 @@ class Robot(object):
 
 
     def __init__(self, turtle_num):
-        self.__rate = 200
-        self.__stop = Robot._new_twist(0, 0)
+        self._rate = 10
+        self._stop = Robot._new_twist(0, 0)
+        self.__pos_sub = rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
+        self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
         self.__current_pose = None
-        rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self.__update_pose)
-        self.__vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     @property
     def curr_theta_degrees(self):
@@ -49,7 +49,7 @@ class Robot(object):
             return None
         return {'x': self.__current_pose.x, 'y': self.__current_pose.y}
 
-    def __update_pose(self, msg):
+    def _update_pose(self, msg):
         self.__current_pose = msg
 
     def distance_diff(self, curr_x, curr_y, goal_x, goal_y):
@@ -74,17 +74,17 @@ class Robot(object):
         sp = abs(ang_speed)
         t = Robot._new_twist(0, -1 * sp if degrees < 0 else sp)
 
-        rate = rospy.Rate(self.__rate)
+        rate = rospy.Rate(self._rate)
         start = rospy.get_rostime().to_sec()
         total_time = math.radians(abs(degrees)) / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                self.__vel_pub.publish(t)
+                self.__pub.publish(t)
                 rate.sleep()
         finally:
-            self.__vel_pub.publish(self.__stop)
+            self.__pub.publish(self._stop)
 
     def turn_abs(self, ang_speed, abs_degrees):
         curr = self.curr_theta_degrees
@@ -103,33 +103,33 @@ class Robot(object):
         dist = abs(distance)
         t = Robot._new_twist(sp if isForward else -1 * sp, 0)
 
-        rate = rospy.Rate(self.__rate)
+        rate = rospy.Rate(self._rate)
         start = rospy.get_rostime().to_sec()
         total_time = dist / sp
         try:
             while True:
                 if rospy.get_rostime().to_sec() - start >= total_time:
                     break
-                self.__vel_pub.publish(t)
+                self.__pub.publish(t)
                 rate.sleep()
         finally:
-            self.__vel_pub.publish(self.__stop)
+            self.__pub.publish(self._stop)
 
-    def goto(self, goal_pose, tolerance):
-        rate = rospy.Rate(self.__rate)
+    def goto(self, goal_x, goal_y, tolerance):
+        rate = rospy.Rate(self._rate)
         try:
             while True:
-                xy = self.curr_xy
-                linear_diff = self.distance_diff(xy['x'], xy['y'], goal_pose.x, goal_pose.y)
-                ang_diff = math.atan2(goal_pose.y - xy['y'], goal_pose.x - xy['x'])
-                print("Distance: {0} Angle: {1}".format(linear_diff, ang_diff))
+                curr = self.__current_pose
+                linear_diff = self.distance_diff(curr.x, curr.y, goal_x, goal_y)
+                ang_diff = math.atan2(goal_y - curr.y, goal_x - curr.x)
+                print(
+                "Distance: {0} Angle: {1} Curr: {2},{3}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
                 if linear_diff < tolerance:
                     break
-                t = Robot._new_twist(1.5 * linear_diff, 4 * ang_diff)
-                self.__vel_pub.publish(t)
+                self.__pub.publish(Robot._new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))
                 rate.sleep()
         finally:
-            self.__vel_pub.publish(self.__stop)
+            self.__pub.publish(self._stop)
 
 
 class TurtleSim(object):
@@ -164,16 +164,12 @@ if __name__ == '__main__':
     # Pause to give pose subscriber a chance to get data
     time.sleep(.5)
 
-    p = Pose()
-    p.x = 1
-    p.y = 1
-    p.theta = 0
-    p.linear_velocity = 1
-    p.angular_velocity = 1
-
     curr = r.curr_xy
     print("Current x,y: {0},{1}".format(curr['x'], curr['y']))
-    r.goto(p, .25)
+    r.goto(2, 2, .25)
+    r.goto(2, 9, .25)
+    r.goto(9, 9, .25)
+    r.goto(9, 2, .25)
 
 
     if False:
