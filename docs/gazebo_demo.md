@@ -2,13 +2,13 @@
 
 A complete description is [here](http://turtlebot3.robotis.com/en/latest/simulation.html).
 
-Launch simulated TurtleBot3 in [Gazebo](http://gazebosim.org) with: 
+Launch simulated TurtleBot3 with an empty world in [Gazebo](http://gazebosim.org) with: 
 ```bash
 # On Ubuntu PC
 $ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
 
-Launch simulated TurtleBot3 with obstacles in Gazebo with: 
+Launch simulated TurtleBot3 with obstacles in [Gazebo](http://gazebosim.org) with: 
 ```bash
 # On Ubuntu PC
 $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
