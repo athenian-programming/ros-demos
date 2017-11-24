@@ -7,9 +7,8 @@ Launch keyboard teleop control with:
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
-
 ## Simulated TurtleBot3 and RViz
-
+Launch RViz viewer and simulated TurtleBot3 with
 ```bash
 # On Ubuntu PC
 $ roslaunch turtlebot3_fake turtlebot3_fake.launch
