@@ -34,10 +34,23 @@ export ROS_HOSTNAME=ubuntu1.local
 export ROS_MASTER_URI=http://ubuntu2.local:11311
 ```
 
-Build the catkin enviroment with:
+Source *~/.bashrc* to add *catkin_make* to your **PATH**:
+```bash
+$ source ~/.bashrc
+```
+
+Note: Ignore the **-su: ~/catkin_ws/devel/setup.bash: No such file or directory** message.
+Running *catkin_make* in the next step will create the */devel* directory.
+
+Build the enviroment with:
 ```bash
 $ cd ~/catkin_ws
 $ catkin_make
+```
+
+Source *~/.bashrc* again to verify that everything was built:
+```bash
+$ source ~/.bashrc
 ```
 
 Every machine connecting to *roscore* must have *ROS_MASTER_URI* set appropriately.
