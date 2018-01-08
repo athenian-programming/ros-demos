@@ -32,6 +32,8 @@ class TurtleRobot(object):
         self.__current_pose = None
         rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
         self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+        # Pause to give pose subscriber a chance to get data
+        time.sleep(.5)
 
     @property
     def curr_theta_degrees(self):

@@ -12,18 +12,11 @@ if __name__ == '__main__':
 
     ts = TurtleSim()
     ts.reset()
+    ts.clear()
 
     tr = TurtleRobot(1)
 
-    curr = tr.curr_xy
-    print("Current x,y: {0},{1}".format(curr['x'], curr['y']))
-
-    tr.goto(2, 2, .25)
-    tr.goto(2, 9, .25)
-    tr.goto(9, 9, .25)
-    tr.goto(9, 2, .25)
-
-    if False:
+    if True:
         for a in range(0, 450, 90):
             tr.turn_abs(1, a)
             time.sleep(1)
