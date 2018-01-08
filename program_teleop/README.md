@@ -7,7 +7,7 @@ Launch the turtlesim with:
 $ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 ```
 
-Run some simulations:
+Control the turtle with:
 ```bash
 $ rosrun program_teleop rotation.py
 $ rosrun program_teleop square.py

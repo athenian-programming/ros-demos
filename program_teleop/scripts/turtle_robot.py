@@ -30,8 +30,13 @@ class TurtleRobot(object):
         self.__rate = 10
         self.__stop = TurtleRobot._new_twist(0, 0)
         self.__current_pose = None
+
+        # Set up subscriber to listen for pose topic messages
         rospy.Subscriber('/turtle' + str(turtle_num) + '/pose', Pose, self._update_pose)
+
+        # Set up publish topic
         self.__pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
+
         # Pause to give pose subscriber a chance to get data
         time.sleep(.5)
 
