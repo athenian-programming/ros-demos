@@ -1,6 +1,5 @@
 # Topic Basics
 
-
 ## Command Line
 
 Subscribe to a topic with:
@@ -14,6 +13,12 @@ Publish to a topic with:
 $ rostopic pub intval std_msgs/Int32 999 -1
 # Publish at 10 hz
 $ rostopic pub intval std_msgs/Int32 999 -r 10
+```
+
+Inspect the **counter** topics from *rqt* with:
+```bash
+$ rqt
+# Select Plugins-->Topics-->Topic Monitor
 ```
 
 ## Programmatic 
@@ -40,13 +45,6 @@ $ rostopic find std_msgs/Int32
 $ rostopic bw counter
 $ rostopic hz counter
 ```
-
-Inspect the **counter** topics from *rqt* with:
-```bash
-$ rqt
-# Select Plugins-->Topics-->Topic Monitor
-```
-
 
 ## Latched Topics
 
