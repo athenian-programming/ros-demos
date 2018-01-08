@@ -7,4 +7,7 @@ Launch the turtlesim with:
 $ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 ```
 
-Run a p
+Run some simulations:
+```bash
+$ rosrun program_teleop multi_goto.py
+```
