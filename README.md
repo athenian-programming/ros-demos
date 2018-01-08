@@ -22,8 +22,6 @@ Install the demo packages with:
 ```bash
 $ cd ~/catkin_ws/src
 $ git clone https://github.com/athenian-robotics/ros-demos.git
-$ cd ~/catkin_ws
-$ catkin_make
 ```
 
 Add these statements (replacing ubuntu1 with your Ubuntu PC hostname) to your *~/.bashrc*:
@@ -34,6 +32,12 @@ source ~/catkin_ws/devel/setup.bash
 export TURTLEBOT3_MODEL=burger
 export ROS_HOSTNAME=ubuntu1.local
 export ROS_MASTER_URI=http://ubuntu2.local:11311
+```
+
+Build the catkin enviroment with:
+```bash
+$ cd ~/catkin_ws
+$ catkin_make
 ```
 
 Every machine connecting to *roscore* must have *ROS_MASTER_URI* set appropriately.
