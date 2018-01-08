@@ -22,3 +22,5 @@ if __name__ == '__main__':
     for a in range(0, 361, 90):
         tr.turn_abs(1, -a)
         time.sleep(1)
+
+    print("Done!!")

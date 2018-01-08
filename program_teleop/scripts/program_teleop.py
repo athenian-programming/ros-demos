@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import time
-
 import rospy
 
 from turtle_robot import TurtleRobot
@@ -10,27 +8,9 @@ from turtle_sim import TurtleSim
 if __name__ == '__main__':
     rospy.init_node('program_teleop')
 
-    ts = TurtleSim()
-    ts.reset()
+    TurtleSim().start()
 
     tr = TurtleRobot(1)
-
-    curr = tr.curr_xy
-    print("Current x,y: {0},{1}".format(curr['x'], curr['y']))
-
-    tr.goto(2, 2, .25)
-    tr.goto(2, 9, .25)
-    tr.goto(9, 9, .25)
-    tr.goto(9, 2, .25)
-
-    if False:
-        for a in range(0, 450, 90):
-            tr.turn_abs(1, a)
-            time.sleep(1)
-
-        for a in range(0, 450, 90):
-            tr.turn_abs(1, -a)
-            time.sleep(1)
 
     if False:
         tr.turn_abs(1, 90)

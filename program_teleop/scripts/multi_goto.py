@@ -29,3 +29,5 @@ if __name__ == '__main__':
 
     print("Going to 5.5, 5.5")
     tr.goto(5.5, 5.5, .25)
+
+    print("Done!!")
