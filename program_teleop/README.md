@@ -1,13 +1,15 @@
 # Programatic Teleop
 
-http://wiki.ros.org/turtlesim
+The [ros_tutorials](https://github.com/ros/ros_tutorials) package includes a [turtle simulator](http://wiki.ros.org/turtlesim). You control
+the turtle with [Twist](http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html) messages, just like any other physical or virtual robot in ROS.
 
-Launch the turtlesim with:
+
+Launch the turtle simulator with:
 ```bash
 $ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 ```
 
-Control the turtle with:
+Move the turtle with:
 ```bash
 $ rosrun program_teleop rotation.py
 $ rosrun program_teleop square.py
