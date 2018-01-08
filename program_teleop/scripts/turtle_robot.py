@@ -22,6 +22,10 @@ class TurtleRobot(object):
         t.angular.z = angular_z
         return t
 
+    @staticmethod
+    def _distance_diff(curr_x, curr_y, goal_x, goal_y):
+        return math.sqrt(math.pow(goal_x - curr_x, 2) + math.pow(goal_y - curr_y, 2))
+
     def __init__(self, turtle_num):
         self.__rate = 10
         self.__stop = TurtleRobot._new_twist(0, 0)
@@ -49,9 +53,6 @@ class TurtleRobot(object):
 
     def _update_pose(self, msg):
         self.__current_pose = msg
-
-    def distance_diff(self, curr_x, curr_y, goal_x, goal_y):
-        return math.sqrt(math.pow(goal_x - curr_x, 2) + math.pow(goal_y - curr_y, 2))
 
     def __degrees_diff(self, curr_val, target_val):
         if curr_val <= 180:
@@ -116,10 +117,9 @@ class TurtleRobot(object):
         try:
             while True:
                 curr = self.__current_pose
-                linear_diff = self.distance_diff(curr.x, curr.y, goal_x, goal_y)
+                linear_diff = TurtleRobot._distance_diff(curr.x, curr.y, goal_x, goal_y)
                 ang_diff = math.atan2(goal_y - curr.y, goal_x - curr.x)
-                print(
-                    "Distance: {0} Angle: {1} Curr: {2},{3}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
+                print("Distance: {} Angle: {} Curr: {},{}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
                 if linear_diff < tolerance:
                     break
                 self.__pub.publish(TurtleRobot._new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))
