@@ -86,14 +86,16 @@ class TurtleRobot(object):
         finally:
             self.__pub.publish(self.__stop)
 
-    def turn_abs(self, ang_speed, abs_degrees):
+    def turn_abs(self, ang_speed, abs_degrees, verbose=False):
         curr = self.curr_theta_degrees
         diff = self.__degrees_diff(curr, abs_degrees)
-        print("Absolute- current: {0}, Absolute target: {1}, Diff: {2}".format(curr, abs_degrees, diff))
+        if verbose:
+            print("Absolute current: {}, Absolute target: {}, Diff: {}".format(curr, abs_degrees, diff))
         self.__rotate(ang_speed, diff)
 
-    def turn_rel(self, ang_speed, rel_degrees):
-        print("Relative- current: {0}, Relative target: {1}".format(self.curr_theta_degrees, rel_degrees))
+    def turn_rel(self, ang_speed, rel_degrees, verbose=False):
+        if verbose:
+            print("Relative current: {}, Relative target: {}".format(self.curr_theta_degrees, rel_degrees))
         self.__rotate(ang_speed, rel_degrees)
 
     def move(self, lin_speed, distance, isForward):
@@ -114,14 +116,15 @@ class TurtleRobot(object):
         finally:
             self.__pub.publish(self.__stop)
 
-    def goto(self, goal_x, goal_y, tolerance):
+    def goto(self, goal_x, goal_y, tolerance, verbose=False):
         rate = rospy.Rate(self.__rate)
         try:
             while True:
                 curr = self.__current_pose
                 linear_diff = TurtleRobot._distance_diff(curr.x, curr.y, goal_x, goal_y)
                 ang_diff = math.atan2(goal_y - curr.y, goal_x - curr.x)
-                print("Distance: {} Angle: {} Curr: {},{}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
+                if verbose:
+                    print("Dist: {} Angle: {} Curr: {},{}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
                 if linear_diff < tolerance:
                     break
                 self.__pub.publish(TurtleRobot._new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))

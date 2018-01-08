@@ -24,3 +24,7 @@ class TurtleSim(object):
             clear()
         except rospy.ServiceException as e:
             print("/clear call failed: %s" % e)
+
+    def start(self):
+        self.reset()
+        self.clear()
