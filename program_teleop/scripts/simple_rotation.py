@@ -14,12 +14,12 @@ if __name__ == '__main__':
 
     tr = TurtleRobot(1)
 
-    print("Turning 450 degrees counter-clockwise")
+    print("Turning 369 degrees counter-clockwise")
     for a in range(0, 361, 90):
         tr.turn_abs(1, a)
         time.sleep(1)
 
-    print("Turning 450 degrees clockwise")
+    print("Turning 360 degrees clockwise")
     for a in range(0, 361, 90):
         tr.turn_abs(1, -a)
         time.sleep(1)
