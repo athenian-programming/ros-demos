@@ -20,4 +20,8 @@ if __name__ == '__main__':
         pub.publish(TurtleRobot.new_twist(1, 0))
         rate.sleep()
 
+    for i in range(10):
+        pub.publish(TurtleRobot.new_twist(1, 1))
+        rate.sleep()
+
     pub.publish(TurtleRobot.new_twist(0, 0))
