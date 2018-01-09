@@ -19,11 +19,11 @@ if __name__ == '__main__':
     t.angular.y = 0
     t.angular.z = 0
 
-    for i in range(2):
+    for i in range(10):
         # Publish the twist message
         pub.publish(t)
         # Give the robot a chance to move
-        rospy.sleep(.1)
+        rospy.sleep(.5)
 
     # Stop the robot
     # pub.publish(TurtleRobot.new_twist(0, 0))
