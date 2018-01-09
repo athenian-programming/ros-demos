@@ -22,10 +22,9 @@ if __name__ == '__main__':
     t.angular.z = 0
 
     # Publish the twist message
-    pub.publish(t)
-    pub.publish(t)
-    pub.publish(t)
-    pub.publish(t)
+    for i in range(10):
+        pub.publish(t)
+        rospy.sleep(.1)
 
     # Give the robot a chance to move
     rospy.sleep(2.0)
