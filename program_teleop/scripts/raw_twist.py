@@ -23,8 +23,8 @@ if __name__ == '__main__':
         # Publish the twist message
         pub.publish(t)
         # Give the robot a chance to move
-        rospy.sleep(.5)
+        rospy.sleep(.1)
 
     # Stop the robot
     # pub.publish(TurtleRobot.new_twist(0, 0))
-    rospy.sleep(5.0)
+    rospy.sleep(10.0)
