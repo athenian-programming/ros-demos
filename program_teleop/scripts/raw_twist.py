@@ -3,6 +3,8 @@
 import rospy
 from geometry_msgs.msg import Twist
 
+from turtle_robot import TurtleRobot
+
 if __name__ == '__main__':
     # This is required
     rospy.init_node('raw_twist')
