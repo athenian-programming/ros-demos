@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     # Create a Twist message
     t = Twist()
-    t.linear.x = .5
+    t.linear.x = 1
     t.linear.y = 0
     t.linear.z = 0
     t.angular.x = 0
