@@ -3,8 +3,6 @@
 import rospy
 from geometry_msgs.msg import Twist
 
-from turtle_robot import TurtleRobot
-
 if __name__ == '__main__':
     # This is required
     rospy.init_node('raw_twist')
@@ -28,5 +26,5 @@ if __name__ == '__main__':
         rospy.sleep(.1)
 
     # Stop the robot
-    pub.publish(TurtleRobot.new_twist(0, 0))
-    rospy.sleep(1.0)
+    # pub.publish(TurtleRobot.new_twist(0, 0))
+    # rospy.sleep(1.0)
