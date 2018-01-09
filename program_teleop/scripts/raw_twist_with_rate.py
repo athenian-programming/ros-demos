@@ -19,14 +19,14 @@ if __name__ == '__main__':
         pub.publish(TurtleRobot.new_twist(0, 1))
         rate.sleep()
 
-    time.sleep(1)
+    time.sleep(2)
 
     print("Going straight")
     for i in range(10):
         pub.publish(TurtleRobot.new_twist(1, 0))
         rate.sleep()
 
-    time.sleep(1)
+    time.sleep(2)
 
     print("Rotating and going straight")
     for i in range(50):

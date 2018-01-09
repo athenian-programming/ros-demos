@@ -25,7 +25,8 @@ if __name__ == '__main__':
     pub.publish(t)
 
     # Give the robot a chance to move
-    rospy.sleep(2)
+    rospy.sleep(2.0)
 
     # Stop the robot
     pub.publish(TurtleRobot.new_twist(0, 0))
+    rospy.sleep(2.0)
