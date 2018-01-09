@@ -27,4 +27,4 @@ if __name__ == '__main__':
 
     # Stop the robot
     # pub.publish(TurtleRobot.new_twist(0, 0))
-    # rospy.sleep(1.0)
+    rospy.sleep(5.0)
