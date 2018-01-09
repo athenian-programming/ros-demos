@@ -12,7 +12,7 @@ from turtlesim.msg import Pose
 
 class TurtleRobot(object):
     @staticmethod
-    def _new_twist(linear_x, angular_z):
+    def new_twist(linear_x, angular_z):
         t = Twist()
         t.linear.x = linear_x
         t.linear.y = 0
@@ -28,7 +28,7 @@ class TurtleRobot(object):
 
     def __init__(self, turtle_num):
         self.__rate = 10
-        self.__stop = TurtleRobot._new_twist(0, 0)
+        self.__stop = TurtleRobot.new_twist(0, 0)
         self.__current_pose = None
 
         # Set up subscriber to listen for pose topic messages
@@ -77,7 +77,7 @@ class TurtleRobot(object):
     def __rotate(self, ang_speed, degrees):
         # ang_speed units are radians/sec
         sp = abs(ang_speed)
-        t = TurtleRobot._new_twist(0, -1 * sp if degrees < 0 else sp)
+        t = TurtleRobot.new_twist(0, -1 * sp if degrees < 0 else sp)
 
         rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
@@ -107,7 +107,7 @@ class TurtleRobot(object):
         # distance = speed * time
         sp = abs(lin_speed)
         dist = abs(distance)
-        t = TurtleRobot._new_twist(sp if isForward else -1 * sp, 0)
+        t = TurtleRobot.new_twist(sp if isForward else -1 * sp, 0)
 
         rate = rospy.Rate(self.__rate)
         start = rospy.get_rostime().to_sec()
@@ -132,7 +132,7 @@ class TurtleRobot(object):
                     print("Dist: {} Angle: {} Curr: {},{}".format(linear_diff, ang_diff - curr.theta, curr.x, curr.y))
                 if linear_diff < tolerance:
                     break
-                self.__pub.publish(TurtleRobot._new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))
+                self.__pub.publish(TurtleRobot.new_twist(.4 * linear_diff, 1.75 * (ang_diff - curr.theta)))
                 rate.sleep()
         finally:
             self.__pub.publish(self.__stop)

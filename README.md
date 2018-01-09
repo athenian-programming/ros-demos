@@ -9,7 +9,7 @@
 * [Joystick Teleop](docs/joystick_teleop.md)
 * [Euclid Teleop](euclid_teleop/)
 * [IMU Teleop](imu_teleop/)
-* [Program Teleop](program_teleop/)
+* [Programatic Teleop](program_teleop/)
 * [RViz Viewer](docs/rviz.md)
 * [TurtleBot3 with Gazebo](docs/gazebo_demo.md)
 * [SLAM](docs/slam.md)
