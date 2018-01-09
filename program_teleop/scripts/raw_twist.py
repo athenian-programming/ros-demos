@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import time
-
 import rospy
 from geometry_msgs.msg import Twist
 
@@ -23,11 +21,11 @@ if __name__ == '__main__':
     t.angular.y = 0
     t.angular.z = 0
 
-    # Publish it
+    # Publish the twist message
     pub.publish(t)
 
     # Give the robot a chance to move
-    time.sleep(2)
+    rospy.sleep(2)
 
     # Stop the robot
     pub.publish(TurtleRobot.new_twist(0, 0))
