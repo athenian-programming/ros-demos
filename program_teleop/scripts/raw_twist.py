@@ -10,7 +10,7 @@ if __name__ == '__main__':
     rospy.init_node('raw_twist')
 
     # Setup publisher
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     # Create a Twist message
     t = Twist()
@@ -21,17 +21,13 @@ if __name__ == '__main__':
     t.angular.y = 0
     t.angular.z = 0
 
-    for i in range(20):
-        # Publish the twist message
-        pub.publish(t)
-        # Give the robot a chance to move
-        rospy.sleep(.1)
+    for i in range(30):
+        pub.publish(t)  # Publish the twist message
+        rospy.sleep(.1)  # Give the robot a chance to move
 
-    for i in range(20):
-        # Publish the twist message
-        pub.publish(TurtleRobot.new_twist(-1, 0))
-        # Give the robot a chance to move
-        rospy.sleep(.1)
+    for i in range(30):
+        pub.publish(TurtleRobot.new_twist(-1, 0))  # Publish the twist message
+        rospy.sleep(.1)  # Give the robot a chance to move
 
     # Stop the robot
     pub.publish(TurtleRobot.new_twist(0, 0))
