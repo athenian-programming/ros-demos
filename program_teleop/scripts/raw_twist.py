@@ -23,6 +23,9 @@ if __name__ == '__main__':
 
     # Publish the twist message
     pub.publish(t)
+    pub.publish(t)
+    pub.publish(t)
+    pub.publish(t)
 
     # Give the robot a chance to move
     rospy.sleep(2.0)
