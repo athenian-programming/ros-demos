@@ -17,7 +17,7 @@ if __name__ == '__main__':
         rate.sleep()
 
     for i in range(10):
-        pub.publish(TurtleRobot.new_twist(1))
+        pub.publish(TurtleRobot.new_twist(1, 0))
         rate.sleep()
 
     pub.publish(TurtleRobot.new_twist(0, 0))
