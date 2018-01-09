@@ -17,15 +17,15 @@ Goto the [Scenarios](http://euclid.local/#config/scenarios) on the Euclid and la
 Run *imu_teleop.py* with: 
 ```bash
 # On Ubunutu PC
-$ rosrun imu_teleop imu_teleop.py
+rosrun imu_teleop imu_teleop.py
 ```
 
 Launch a robot with:
 ```bash
 # On TurtleBot3
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+roslaunch turtlebot3_bringup turtlebot3_robot.launch
 # On Ubuntu PC
-$ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 # On Ubuntu PC
-$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
+roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```

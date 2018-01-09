@@ -7,7 +7,7 @@ Goto the [Monitor](http://euclid.local/#apps) on the Euclid and enable *teleop*
 Run *twist_remapper.py* with: 
 ```bash
 # On Ubunutu PC
-$ rosrun euclid_teleop twist_remapper.py
+rosrun euclid_teleop twist_remapper.py
 ```
 
 Alternatively, specify the remapping in the *~/catkin_ws/src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_core.launch* file:
@@ -29,9 +29,9 @@ The **remap** tag details are [here](http://wiki.ros.org/roslaunch/XML/remap).
 Launch a robot with:
 ```bash
 # On TurtleBot3
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+roslaunch turtlebot3_bringup turtlebot3_robot.launch
 # On Ubuntu PC
-$ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 # On Ubuntu PC
-$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
+roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```

@@ -14,21 +14,21 @@ if __name__ == '__main__':
 
     rate = rospy.Rate(10)
 
-    print("Rotating")
+    print("Rotate")
     for i in range(50):
         pub.publish(TurtleRobot.new_twist(0, 1))
         rate.sleep()
 
     time.sleep(2)
 
-    print("Going straight")
+    print("Go straight")
     for i in range(10):
         pub.publish(TurtleRobot.new_twist(1, 0))
         rate.sleep()
 
     time.sleep(2)
 
-    print("Rotating and going straight")
+    print("Rotate and go straight")
     for i in range(50):
         pub.publish(TurtleRobot.new_twist(1, 1))
         rate.sleep()

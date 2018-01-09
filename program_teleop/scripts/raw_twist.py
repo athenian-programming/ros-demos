@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # This is required
     rospy.init_node('raw_twist')
 
-    # Setup publisher
+    # Setup publisher with topic name, message type and queue size
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
     # Create a Twist message

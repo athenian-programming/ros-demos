@@ -5,7 +5,7 @@ Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 Launch keyboard control with: 
 ```bash
 # On Ubuntu PC
-$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
 Examine the topics and values with either *rqt* or *rqt_plot*.
@@ -21,11 +21,11 @@ Plot these topics:
  Launch a robot with:
 ```bash
 # On TurtleBot3
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+roslaunch turtlebot3_bringup turtlebot3_robot.launch
 # On Ubuntu PC
-$ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 # On Ubuntu PC
-$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
+roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
 
 
