@@ -8,6 +8,7 @@ from geometry_msgs.msg import Twist
 from turtle_robot import TurtleRobot
 
 if __name__ == '__main__':
+    rospy.init_node('raw_twist')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
