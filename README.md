@@ -3,8 +3,8 @@
 ## Demos
 
 * [Topic Basics](topic_basics/)
-* [Robot Steering rqt plugin](docs/robot_steering.md)
 * [Keyboard Teleop](docs/keyboard_teleop.md)
+* [Robot Steering rqt plugin](docs/robot_steering.md)
 * [XBox Teleop](xbox_teleop/)
 * [Joystick Teleop](docs/joystick_teleop.md)
 * [Euclid Teleop](euclid_teleop/)

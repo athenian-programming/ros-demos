@@ -10,21 +10,23 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 Examine the topics and values with either *rqt* or *rqt_plot*.
 With *rqt* add the following plugins:
-   1) **Plugins-->Topics-->TopicMonitor** 
-   2) **Plugins-->Visualization-->Plot**. 
+1) **Plugins-->Topics-->TopicMonitor** 
+2) **Plugins-->Visualization-->Plot**. 
 
 
 Plot these topics:
- 1) **/cmd_vel/linear/x** for keystroke control.
- 2) **/imu/orientation/z** for robot rotation.
+1) **/cmd_vel/linear/x** for keystroke control.
+2) **/imu/orientation/z** for robot rotation.
  
  Launch a robot with:
 ```bash
 # On TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
-# On Ubuntu PC
+
+# TurltleSim on Ubuntu PC
 rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
-# On Ubuntu PC
+
+# Gazebo on Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
 

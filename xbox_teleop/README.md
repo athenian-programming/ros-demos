@@ -56,5 +56,3 @@ rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
 # On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
-
-
