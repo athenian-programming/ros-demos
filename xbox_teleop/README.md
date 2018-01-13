@@ -43,6 +43,7 @@ Launch a [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) node with:
 # On Ubuntu PC
 roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js0 joy_config:=xbox enable_turbo_button:=1
 ```
+
 Values will not be published to **/cmd_vel** unless a deadman button (**X**) is pressed. 
 The upper right trigger button is a turbo deadman button.
 
@@ -51,8 +52,10 @@ Launch a robot with:
 ```bash
 # On TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
+
 # On Ubuntu PC
 rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+
 # On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
