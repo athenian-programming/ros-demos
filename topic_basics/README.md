@@ -11,6 +11,7 @@ Publish to a topic with:
 ```bash
 # Publish once
 rostopic pub intval std_msgs/Int32 999 -1
+
 # Publish at 10 hz
 rostopic pub intval std_msgs/Int32 999 -r 10
 ```

@@ -6,8 +6,8 @@ Launch either a simulated or real TurtleBot3 with:
 ```bash
 # On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_world.launch
-# or
-# On TurtleBot3
+
+# Or on TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
