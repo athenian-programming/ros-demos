@@ -2,6 +2,17 @@
 
 Demo details are [here](http://turtlebot3.robotis.com/en/latest/bringup.html).
 
+Install these repos in *~/catkin/src*:
+
+```bash
+cd ~/catkin_ws/src
+git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+cd ~/catkin_ws && catkin_make
+```
+
+
 Launch keyboard control with: 
 ```bash
 # On Ubuntu PC
