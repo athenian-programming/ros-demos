@@ -34,17 +34,17 @@ Source *~/.bashrc* to add *catkin_make* to your **PATH**:
 source ~/.bashrc
 ```
 
-Note: Ignore the **-su: ~/catkin_ws/devel/setup.bash: No such file or directory** message.
-Running *catkin_make* in the next step will create the */devel* directory.
+Note: Ignore the **-su: ~/catkin_ws/devel/setup.bash: No such file or directory** error message.
+Running *catkin_make* in the next step will create the *~/catkin_ws/devel* and *~/catkin_ws/build* directories.
 
-Install the *ros-demos* package in *~/catkin/src* with:
+Install the *ros-demos* package to *~/catkin_ws/src* with:
 
 ```bash
 cd ~/catkin_ws/src
 git clone https://github.com/athenian-robotics/ros-demos.git
 ```
 
-Install the TurtleBot3 packages in *~/catkin/src* with:
+Install the TurtleBot3 packages to *~/catkin_ws/src* with:
 
 ```bash
 cd ~/catkin_ws/src
@@ -69,7 +69,7 @@ Run *roscore* on your Ubuntu PC with:
 roscore
 ```
 
-## Adjusting the PyCharm Interpreter Path
+## Adjust the PyCharm Interpreter Path
 
 Add */opt/ros/kinetic/lib/python2.7/dist-packages* to the 
 interpreter path with:
