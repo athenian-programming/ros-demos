@@ -17,11 +17,22 @@
 
 ## Setup
 
-Install the demo packages with:
+Install the *ros-demos* package in *~/catkin/src* with:
 
 ```bash
 cd ~/catkin_ws/src
 git clone https://github.com/athenian-robotics/ros-demos.git
+cd ~/catkin_ws && catkin_make
+```
+
+Install the TurtleBot3 packages in *~/catkin/src* with:
+
+```bash
+cd ~/catkin_ws/src
+git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+cd ~/catkin_ws && catkin_make
 ```
 
 Add these statements (replacing ubuntu1 with your Ubuntu PC hostname) to your *~/.bashrc*:
@@ -53,7 +64,7 @@ Source *~/.bashrc* again to verify that everything was built:
 source ~/.bashrc
 ```
 
-Every machine connecting to *roscore* must have *ROS_MASTER_URI* set appropriately.
+Machines connecting to *roscore* must have *ROS_MASTER_URI* set appropriately.
 
 More setup details are [here](docs/setup.md).
 
