@@ -19,7 +19,7 @@
 
 Create the *catkin_ws* and *catkin_ws/src* dirs:
 ```bash
-mkdir -p catkin_ws/src
+mkdir -p ~/catkin_ws/src
 ```
 
 Add these statements (replacing ubuntu1 with your Ubuntu PC hostname and ubuntu2 with
