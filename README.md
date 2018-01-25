@@ -17,11 +17,9 @@
 
 ## Setup
 
-Create the *catkin_ws* and *catkin_ws/src* dirs and initialize them:
+Create the *catkin_ws* and *catkin_ws/src* dirs:
 ```bash
 mkdir -p catkin_ws/src
-sudo rosdep init
-rosdep update
 ```
 
 Add these statements (replacing ubuntu1 with your Ubuntu PC hostname and ubuntu2 with
