@@ -11,7 +11,7 @@ def callback(msg):
     pub.publish(msg)
 
 
-if __name__ == '__main__':
+def main():
     rospy.init_node('twist_remapper')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
@@ -19,3 +19,7 @@ if __name__ == '__main__':
     print("Listening...")
 
     rospy.spin()
+
+
+if __name__ == '__main__':
+    main()

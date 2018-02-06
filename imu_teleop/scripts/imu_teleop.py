@@ -33,7 +33,7 @@ def ang_callback(msg):
     curr_ang = int((ang_raw - ang_adj) * 100) / 100.0
 
 
-if __name__ == '__main__':
+def main():
     linear_adj = None
     ang_adj = None
     curr_linear = 0
@@ -72,3 +72,7 @@ if __name__ == '__main__':
         twist.angular.y = 0
         twist.angular.z = 0
         pub.publish("Closing...")
+
+
+if __name__ == '__main__':
+    main()

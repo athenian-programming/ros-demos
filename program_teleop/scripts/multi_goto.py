@@ -5,7 +5,8 @@ import rospy
 from turtle_robot import TurtleRobot
 from turtle_sim import TurtleSim
 
-if __name__ == '__main__':
+
+def main():
     rospy.init_node('multi_goto')
 
     TurtleSim().start()
@@ -31,3 +32,7 @@ if __name__ == '__main__':
     tr.goto(5.5, 5.5, .25)
 
     print("Done!!")
+
+
+if __name__ == '__main__':
+    main()

@@ -95,7 +95,7 @@ def callback(msg):
     pub.publish(twist)
 
 
-if __name__ == '__main__':
+def main():
     target_linear = 0
     target_ang = 0
     curr_linear = 0
@@ -108,3 +108,7 @@ if __name__ == '__main__':
     print("Listening...")
 
     rospy.spin()
+
+
+if __name__ == '__main__':
+    main()

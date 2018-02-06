@@ -7,7 +7,8 @@ from geometry_msgs.msg import Twist
 
 from turtle_robot import TurtleRobot
 
-if __name__ == '__main__':
+
+def main():
     rospy.init_node('raw_twist_with_rate')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
@@ -34,3 +35,7 @@ if __name__ == '__main__':
         rate.sleep()
 
     pub.publish(TurtleRobot.new_twist(0, 0))
+
+
+if __name__ == '__main__':
+    main()

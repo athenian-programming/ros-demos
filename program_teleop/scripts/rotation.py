@@ -7,7 +7,8 @@ import rospy
 from turtle_robot import TurtleRobot
 from turtle_sim import TurtleSim
 
-if __name__ == '__main__':
+
+def main():
     rospy.init_node('simple_rotation')
 
     TurtleSim().start()
@@ -24,3 +25,7 @@ if __name__ == '__main__':
         time.sleep(1)
 
     print("Done!!")
+
+
+if __name__ == '__main__':
+    main()

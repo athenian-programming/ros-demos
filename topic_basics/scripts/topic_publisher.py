@@ -3,7 +3,8 @@
 import rospy
 from std_msgs.msg import Int32
 
-if __name__ == '__main__':
+
+def main():
     rospy.init_node('topic_publisher')
     pub = rospy.Publisher('counter', Int32, queue_size=10)
     rate = rospy.Rate(2)
@@ -14,3 +15,7 @@ if __name__ == '__main__':
         pub.publish(count)
         count += 1
         rate.sleep()
+
+
+if __name__ == '__main__':
+    main()

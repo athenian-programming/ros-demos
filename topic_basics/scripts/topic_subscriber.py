@@ -7,8 +7,12 @@ def callback(msg):
     print(msg.data)
 
 
-if __name__ == '__main__':
+def main():
     rospy.init_node('topic_subscriber')
     rospy.Subscriber('counter', Int32, callback)
     print("Listening...")
     rospy.spin()
+
+
+if __name__ == '__main__':
+    main()
