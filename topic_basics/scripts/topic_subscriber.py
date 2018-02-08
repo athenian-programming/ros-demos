@@ -17,11 +17,11 @@ def main():
     rospy.init_node('topic_subscriber')
 
     # Setup subscriber without callback args
-    rospy.Subscriber('counter', Int32, callback=callback)
+    rospy.Subscriber('counter', Int32, callback)
 
     # Setup subscriber without callback args
-    rospy.Subscriber('counter', Int32, callback=callback_with_user_data, callback_args="callback1")
-    rospy.Subscriber('counter', Int32, callback=callback_with_user_data, callback_args="callback2")
+    rospy.Subscriber('counter', Int32, callback_with_user_data, "callback1")
+    rospy.Subscriber('counter', Int32, callback_with_user_data, "callback2")
 
     print("Listening...")
     # Wait
