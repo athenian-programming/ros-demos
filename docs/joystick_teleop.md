@@ -18,7 +18,7 @@ Test a joystick with:
 jstest-gtk
 jstest --normal /dev/input/js1
 ```
-**Warning:** `/dev/input/js1` might have a different name.
+**Note:** `/dev/input/js1` might have a different name.
 
 ## Usage
 
@@ -27,7 +27,7 @@ Launch a [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) node with:
 # On Ubuntu PC
 roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1 joy_config:=xd3 enable_turbo_button:=1 scale_linear:=1 scale_angular:=1
 ```
-**Warning:** `/dev/input/js1` might have a different name.
+**Note:** `/dev/input/js1` might have a different name.
 
 
 Launch a robot with:
