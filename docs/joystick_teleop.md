@@ -25,7 +25,7 @@ jstest --normal /dev/input/js1
 Launch a [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) node with: 
 ```bash
 # On Ubuntu PC
-roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1 joy_config:=xd3 enable_turbo_button:=1
+roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1 joy_config:=xd3 enable_turbo_button:=1 scale_linear:=1 scale_angular:=1
 ```
 **Warning:** `/dev/input/js1` might have a different name.
 
