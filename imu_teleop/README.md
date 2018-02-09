@@ -20,14 +20,20 @@ Run *imu_teleop.py* with:
 rosrun imu_teleop imu_teleop.py
 ```
 
-Launch a robot with:
+Launch a TurtleBot3 with:
 ```bash
 # On TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
 
+Launch a simulated turtle robot with:
+```bash
 # On Ubuntu PC
 rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+```
 
+Launch a TurtleBot3 in Gazebo with:
+```bash
 # On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```

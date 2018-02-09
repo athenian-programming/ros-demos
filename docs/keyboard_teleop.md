@@ -18,15 +18,21 @@ Plot these topics:
 1) **/cmd_vel/linear/x** for keystroke control.
 2) **/imu/orientation/z** for robot rotation.
  
- Launch a robot with:
+Launch a TurtleBot3 with:
 ```bash
 # On TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
 
-# TurltleSim on Ubuntu PC
+Launch a simulated turtle robot with:
+```bash
+# On Ubuntu PC
 rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+```
 
-# Gazebo on Ubuntu PC
+Launch a TurtleBot3 in Gazebo with:
+```bash
+# On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
 

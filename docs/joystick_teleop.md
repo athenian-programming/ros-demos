@@ -29,15 +29,20 @@ roslaunch teleop_twist_joy teleop.launch joy_dev:=/dev/input/js1 joy_config:=xd3
 ```
 **Note:** `/dev/input/js1` might have a different name.
 
-
-Launch a robot with:
+Launch a TurtleBot3 with:
 ```bash
 # On TurtleBot3
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
 
+Launch a simulated turtle robot with:
+```bash
 # On Ubuntu PC
 rosrun turtlesim turtlesim_node /turtle1/cmd_vel:=/cmd_vel
+```
 
+Launch a TurtleBot3 in Gazebo with:
+```bash
 # On Ubuntu PC
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
