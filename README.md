@@ -22,7 +22,7 @@ Create the *catkin_ws* and *catkin_ws/src* dirs:
 mkdir -p ~/catkin_ws/src
 ```
 
-Add these statements (replacing ubuntu1 with your Ubuntu PC hostname and ubuntu2 with
+Add these statements (replacing ubuntu2 with
 the hostname of the machine running *roscore*) to your *~/.bashrc*:
 
 ```bash
@@ -30,7 +30,7 @@ source /opt/ros/kinetic/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
 export TURTLEBOT3_MODEL=burger
-export ROS_HOSTNAME=ubuntu1
+export ROS_HOSTNAME=$(hostname).local
 export ROS_MASTER_URI=http://ubuntu2:11311
 ```
 
@@ -39,7 +39,7 @@ Source *~/.bashrc* to add *catkin_make* to your **PATH**:
 source ~/.bashrc
 ```
 
-Note: Ignore the **-su: ~/catkin_ws/devel/setup.bash: No such file or directory** error message.
+Note: You can ignore the ``su: ~/catkin_ws/devel/setup.bash: No such file or directory`` error message.
 Running *catkin_make* in the next step will create the *~/catkin_ws/devel* and *~/catkin_ws/build* directories.
 
 Install the *ros-demos* package to *~/catkin_ws/src* with:
